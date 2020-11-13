@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lakes Walks</title>
+</head>
+<body>
+    
+    <h1>Hello World!</h1>
+        {% for hill in hills %}
+            <h2>{{hill.name }}</h2>
+            <p>{{ hill.height }}</p>
+        {% endfor %}
+
+</body>
+</html>
