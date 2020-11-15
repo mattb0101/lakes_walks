@@ -18,8 +18,13 @@ mongo = PyMongo(app)
 
 @app.route("/")
 def index():
+    return render_template("index.html")
+
+
+@app.route("/area")
+def area():
     hills = list(mongo.db.hills.find())
-    return render_template("index.html", hills=hills)
+    return render_template("areas.html", hills=hills)
 
 
 if __name__ == "__main__":

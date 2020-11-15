@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+    {% block content %}
+        <h2 class="s12 center-align">Far Eastern Fells</h2>
+		{% for hill in hills %}
+		<strong>{{hill.name }}</strong>
+		<p>{{ hill.height }}</p>
+		{% endfor %}
+    {% endblock %}

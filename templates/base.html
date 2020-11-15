@@ -14,7 +14,7 @@
 <body>
     <!-- Dropdown menu for areas -->
 	<ul id="dropdown1" class="dropdown-content">
-		<li><a href="#!">Far Eastern Fells</a></li>
+		<li><a href="{{ url_for('area') }}">Far Eastern Fells</a></li>
         <li class="divider"></li>
 		<li><a href="#!">Eastern Fells</a></li>
 		<li class="divider"></li>
@@ -22,11 +22,11 @@
 	</ul>
 	<nav>
 		<div class="nav-wrapper green lighten-1">
-			<a href="#!" class="brand-logo">Lake District Hills & Walks</a>
+			<a href="{{ url_for('index') }}" class="brand-logo">Lake District Hills & Walks</a>
 			<a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="fas fa-bars"></i></a>
 			<ul class="right hide-on-med-and-down">
-				<li><a href="#">Home</a></li>
-				<li><a  class="dropdown-trigger" href="#" data-target="dropdown1">Areas<i class="fas fa-caret-down right"></i></a></li>
+				<li><a href="{{ url_for('index') }}">Home</a></li>
+				<li><a  class="dropdown-trigger" href="#!" data-target="dropdown1">Areas<i class="fas fa-caret-down right"></i></a></li>
 				<li><a href="#">Profile</a></li>
 				<li><a href="#">Register</a></li>
 				<li><a href="#">Login</a></li>
@@ -36,7 +36,7 @@
 
 	<ul class="sidenav" id="mobile-demo">
 		<li><a href="#">Home</a></li>
-		<li><a href="#">Areas</a></li>
+		<li><a class="dropdown-trigger" href="#!" data-target="dropdown1">Areas<i class="fas fa-caret-down right"></i></a></li>
 		<li><a href="#">Profile</a></li>
 		<li><a href="#">Register</a></li>
 		<li><a href="#">Login</a></li>
