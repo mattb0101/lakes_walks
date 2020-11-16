@@ -27,6 +27,11 @@ def area():
     return render_template("areas.html", hills=hills)
 
 
+@app.route("/login")
+def login():
+    return render_template("login.html")
+
+
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
             port=int(os.environ.get("PORT")),
