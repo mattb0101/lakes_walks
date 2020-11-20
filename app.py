@@ -23,9 +23,9 @@ def index():
     return render_template("index.html")
 
 
-@app.route("/area")
-def area():
-    hills = list(mongo.db.hills.find())
+@app.route("/area/<area_name>")
+def area(area_name):
+    hills = list(mongo.db.hills.find({"area": area_name}))
     return render_template("areas.html", hills=hills)
 
 

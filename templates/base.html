@@ -14,16 +14,16 @@
 <body>
     <!-- Dropdown menu for areas -->
 	<ul id="dropdown1" class="dropdown-content">
-		<li><a href="{{ url_for('area') }}">Far Eastern Fells</a></li>
+		<li><a href="{{ url_for('area' ,area_name='Far Eastern Fells') }}">Far Eastern Fells</a></li>
 		<li class="divider"></li>
-		<li><a href="#!">Eastern Fells</a></li>
+		<li><a href="{{ url_for('area' ,area_name='Eastern Fells') }}">Eastern Fells</a></li>
 		<li class="divider"></li>
 		<li><a href="#!">Mid-Western Fells</a></li>
 	</ul>
     <ul id="dropdown-phone" class="dropdown-content">
-		<li><a href="{{ url_for('area') }}">Far Eastern Fells</a></li>
+		<li><a href="{{ url_for('area' ,area_name='Far Eastern Fells') }}">Far Eastern Fells</a></li>
 		<li class="divider"></li>
-		<li><a href="#!">Eastern Fells</a></li>
+		<li><a href="{{ url_for('area' ,area_name='Eastern Fells') }}">Eastern Fells</a></li>
 		<li class="divider"></li>
 		<li><a href="#!">Mid-Western Fells</a></li>
 	</ul>

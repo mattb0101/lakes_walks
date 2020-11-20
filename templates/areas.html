@@ -5,5 +5,6 @@
         <div class="collection">
 		{% for hill in hills|sort(attribute='name') %}
         <a href="#!" class="collection-item green lighten-3 grey-text text-darken-2">{{ hill.name }}</a>
+        </div>
 		{% endfor %}
     {% endblock %}
