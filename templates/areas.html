@@ -1,10 +1,12 @@
 {% extends "base.html" %}
 
     {% block content %}
-        <h2 class="s12 center-align">Far Eastern Fells</h2>
-        <div class="collection">
-		    {% for hill in hills|sort(attribute='name') %}
-            <a href="#!" class="collection-item green lighten-3 grey-text text-darken-2">{{ hill.name }}</a>
-		    {% endfor %}
-        </div>
+		<section class="container">
+			<h2 class="s12 center-align">{{ area.area }}</h2>
+			    <div class="collection">
+				    {% for hill in hills|sort(attribute='name') %}
+				    <a href="#!" class="collection-item green lighten-3 grey-text text-darken-2">{{ hill.name }}</a>
+				    {% endfor %}
+			    </div>
+		</section>
     {% endblock %}
