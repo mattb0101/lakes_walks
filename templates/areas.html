@@ -3,10 +3,42 @@
     {% block content %}
 		<section class="container">
 			<h2 class="s12 center-align">{{ area.area }}</h2>
-			    <div class="collection">
+            <!-- <div class="collection">
 				    {% for hill in hills|sort(attribute='name') %}
 				    <a href="#!" class="collection-item green lighten-3 grey-text text-darken-2">{{ hill.name }}</a>
 				    {% endfor %}
-			    </div>
+			    </div> -->
+
+			<!-- <ul class="collapsible popout">
+				<li>
+					<div class="collapsible-header"><i class="material-icons">filter_drama</i>First</div>
+					<div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+				</li>
+				<li>
+					<div class="collapsible-header"><i class="material-icons">place</i>Second</div>
+					<div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+				</li>
+				<li>
+					<div class="collapsible-header"><i class="material-icons">whatshot</i>Third</div>
+					<div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+				</li>
+			</ul> -->
+
+            <ul class="collapsible popout">
+                {% for group in groups %}
+                    {% set parentgroup = group.group %}
+                    <li>
+                        <div class="collapsible-header">{{ group.group }}</div>
+                        {% for hill in hills %}
+                            {% if hill.group|string() == parentgroup|string() %}
+                            <div class="collapsible-body green"><span>{{ hill.name }}</span></div>
+                            {% endif %}
+                        {% endfor %}
+                    </li>
+                {% endfor %}
+            </ul>
 		</section>
     {% endblock %}
+
+
+    
