@@ -2,41 +2,39 @@
 
     {% block content %}
 		<section class="container">
-			<h2 class="s12 center-align">{{ area.area }}</h2>
-            <!-- <div class="collection">
-				    {% for hill in hills|sort(attribute='name') %}
-				    <a href="#!" class="collection-item green lighten-3 grey-text text-darken-2">{{ hill.name }}</a>
-				    {% endfor %}
-			    </div> -->
+			<div class="row">
+				<h2 class="center-align">{{ area.area }}</h2>
+				<div class="col s12 m4 l3">
+					<ul class="collapsible popout">
+						{% for group in groups %}
+						{% set parentgroup = group.group %}
+						<li>
+							<div class="collapsible-header green lighten-1 z-depth-2">{{ group.group }}</div>
+							{% for hill in hills|sort(attribute='name') %}
+							{% if hill.group|string() == parentgroup|string() %}
+							<div class="collapsible-body green"><span>{{ hill.name }}</span></div>
+							{% endif %}
+							{% endfor %}
+						</li>
+						{% endfor %}
+					</ul>
+				</div>
+                <div class="col l1"></div>
 
-			<!-- <ul class="collapsible popout">
-				<li>
-					<div class="collapsible-header"><i class="material-icons">filter_drama</i>First</div>
-					<div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-				</li>
-				<li>
-					<div class="collapsible-header"><i class="material-icons">place</i>Second</div>
-					<div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-				</li>
-				<li>
-					<div class="collapsible-header"><i class="material-icons">whatshot</i>Third</div>
-					<div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-				</li>
-			</ul> -->
+                <div class="col s12 m6 l6">
+                    <div class="card ">
+                        <div class="card-image">
+                            <img class="responsive-img" src="{{ url_for('static', filename='img/thornthwaite-crag.jpg') }}" alt="mountain">
+                            <span class="card-title">Thornthwaite-Crag</span>
+                        </div>
+                        <div class="card-content green lighten-1">
+                            <p>lets put some stuff in here</p>
+                        </div>
+                    </div>
+                </div>
 
-            <ul class="collapsible popout">
-                {% for group in groups %}
-                    {% set parentgroup = group.group %}
-                    <li>
-                        <div class="collapsible-header">{{ group.group }}</div>
-                        {% for hill in hills %}
-                            {% if hill.group|string() == parentgroup|string() %}
-                            <div class="collapsible-body green"><span>{{ hill.name }}</span></div>
-                            {% endif %}
-                        {% endfor %}
-                    </li>
-                {% endfor %}
-            </ul>
+            </div>
+
 		</section>
     {% endblock %}
 
