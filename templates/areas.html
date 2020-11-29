@@ -1,4 +1,3 @@
-{# areas.html #}
 {% extends "base.html" %}
 
     {% block content %}
@@ -21,19 +20,32 @@
 					</ul>
 				</div>
                 <div class="col l1"></div>
-            
+        
 				{% if hill.name %}
 					<div class="col s12 m6 l6">
 						<div class="card ">
 							<div class="card-image">
-								<img class="responsive-img" src="{{ url_for('static', filename='img/thornthwaite-crag.jpg') }}" alt="mountain">
+								<img class="responsive-img" src="{{ url_for('static', filename=hill.image_path) }}" alt="mountain">
 								<span class="card-title">{{ hill.name }}</span>
-							</div>
+                            </div>
 							<div class="card-content green lighten-1">
-								<p>lets put some stuff in here</p>
+								<p>Height: {{ hill.height }}</p>
+							</div>
+							<div class="card-action green darken-2 center-align">
+								<a href="#">Walk for this Hill</a>
 							</div>
 						</div>
-					</div>
+                        <ul class="collection green lighten-1">
+                            
+                            {% for comment in comments %}
+                            {% if comment.hill == hill.name %}
+                                <li class="collection-item">{{ comment.comment_text }} : {{ comment.author }}</li>
+                            {% endif %}
+                            {% endfor %}
+                            
+                        </ul>
+                    </div>
+
 				{% else %}
                     <h3>Please Choose your hill!</h3>
                 {% endif %}

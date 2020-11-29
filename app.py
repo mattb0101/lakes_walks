@@ -31,10 +31,10 @@ def area(area_name, hill_name):
     area = mongo.db.areas.find_one({"area": area_name})
     hills = list(mongo.db.hills.find({"area": area_name}))
     hill = mongo.db.hills.find_one({"name": hill_name})
+    comments = list(mongo.db.comments.find())
     return render_template(
         "areas.html", hills=hills, areas=areas,
-         area=area, groups=groups, hill=hill)
-
+         area=area, groups=groups, hill=hill, comments=comments)
 
 
 @app.route("/login", methods=["GET", "POST"])
