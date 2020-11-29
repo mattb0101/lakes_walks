@@ -1,3 +1,4 @@
+{# areas.html #}
 {% extends "base.html" %}
 
     {% block content %}
@@ -12,7 +13,7 @@
 							<div class="collapsible-header green lighten-1 z-depth-2">{{ group.group }}</div>
 							{% for hill in hills|sort(attribute='name') %}
 							{% if hill.group|string() == parentgroup|string() %}
-							<div class="collapsible-body green"><span>{{ hill.name }}</span></div>
+							<div class="collapsible-body green"><span><a href="{{ url_for('area', area_name=area.area, hill_name=hill.name) }}">{{ hill.name }}</a></span></div>
 							{% endif %}
 							{% endfor %}
 						</li>
@@ -20,23 +21,27 @@
 					</ul>
 				</div>
                 <div class="col l1"></div>
-
-                <div class="col s12 m6 l6">
-                    <div class="card ">
-                        <div class="card-image">
-                            <img class="responsive-img" src="{{ url_for('static', filename='img/thornthwaite-crag.jpg') }}" alt="mountain">
-                            <span class="card-title">Thornthwaite-Crag</span>
-                        </div>
-                        <div class="card-content green lighten-1">
-                            <p>lets put some stuff in here</p>
-                        </div>
-                    </div>
-                </div>
-
+            
+				{% if hill.name %}
+					<div class="col s12 m6 l6">
+						<div class="card ">
+							<div class="card-image">
+								<img class="responsive-img" src="{{ url_for('static', filename='img/thornthwaite-crag.jpg') }}" alt="mountain">
+								<span class="card-title">{{ hill.name }}</span>
+							</div>
+							<div class="card-content green lighten-1">
+								<p>lets put some stuff in here</p>
+							</div>
+						</div>
+					</div>
+				{% else %}
+                    <h3>Please Choose your hill!</h3>
+                {% endif %}
             </div>
-
-		</section>
-    {% endblock %}
+            
+        </section>
+		
+    {% endblock content%}
 
 
     

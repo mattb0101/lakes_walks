@@ -9,19 +9,24 @@
 		integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
 	<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 	<title>Lakes Walks</title>
+    <script>
+        function resizeIframe(obj) {
+            obj.style.height = obj.contentWindow.document.documentElement.scrollHeight + 'px';
+        }
+    </script>
 </head>
 
 <body>
     <!-- Dropdown menu for areas -->
 	<ul id="dropdown1" class="dropdown-content">
         {% for area in areas %}
-            <li><a href="{{ url_for('area', area_name=area.area) }}">{{ area.area }}</a></li>
+            <li><a href="{{ url_for('area', area_name=area.area, hill_name='#') }}">{{ area.area }}</a></li>
             <li class="divider"></li>
         {% endfor %}
 	</ul>
     <ul id="dropdown-phone" class="dropdown-content">
 		{% for area in areas %}
-            <li><a href="{{ url_for('area', area_name=area.area) }}">{{ area.area }}</a></li>
+            <li><a href="{{ url_for('area', area_name=area.area, hill_name='#') }}">{{ area.area }}</a></li>
             <li class="divider"></li>
         {% endfor %}
 	</ul>

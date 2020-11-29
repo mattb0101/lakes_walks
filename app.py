@@ -24,13 +24,17 @@ def index():
     return render_template("index.html", areas=areas)
 
 
-@app.route("/area/<area_name>")
-def area(area_name):
+@app.route("/area/<area_name>/<hill_name>")
+def area(area_name, hill_name):
     groups = list(mongo.db.groups.find({"area": area_name}))
     areas = list(mongo.db.areas.find())
     area = mongo.db.areas.find_one({"area": area_name})
     hills = list(mongo.db.hills.find({"area": area_name}))
-    return render_template("areas.html", hills=hills, areas=areas, area=area, groups=groups)
+    hill = mongo.db.hills.find_one({"name": hill_name})
+    return render_template(
+        "areas.html", hills=hills, areas=areas,
+         area=area, groups=groups, hill=hill)
+
 
 
 @app.route("/login", methods=["GET", "POST"])
