@@ -12,7 +12,7 @@
 							<div class="collapsible-header green lighten-1 z-depth-2">{{ group.group }}</div>
 							{% for hill in hills|sort(attribute='name') %}
 							{% if hill.group|string() == parentgroup|string() %}
-							<div class="collapsible-body green"><span><a href="{{ url_for('area', area_name=area.area, hill_name=hill.name) }}">{{ hill.name }}</a></span></div>
+							<div class="collapsible-body green"><span><a href="{{ url_for('area', area_name=area.area, hill_name=hill.name) }}" class="white-text">{{ hill.name }}</a></span></div>
 							{% endif %}
 							{% endfor %}
 						</li>
@@ -32,7 +32,7 @@
 								<p>Height: {{ hill.height }}</p>
 							</div>
 							<div class="card-action green darken-2 center-align">
-								<a href="#">Walk for this Hill</a>
+								<a href="{{ url_for('walk', hill_name=hill.name) }}">Walk for this Hill</a>
 							</div>
 						</div>
                         <ul class="collection green lighten-1">

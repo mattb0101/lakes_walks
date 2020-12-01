@@ -7,3 +7,6 @@ https://stackoverflow.com/questions/9975810/make-iframe-automatically-adjust-hei
 
 Setting parameters defaults
 https://www.programiz.com/python-programming/function-argument
+
+
+Annoying how jinja stuff or something...takes into account commented out lines!

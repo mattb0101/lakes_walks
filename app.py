@@ -37,6 +37,12 @@ def area(area_name, hill_name):
          area=area, groups=groups, hill=hill, comments=comments)
 
 
+@app.route("/walk/<hill_name>")
+def walk(hill_name):
+    walk = mongo.db.walks.find_one({"hill_name": hill_name})
+    return render_template("walk.html", walk=walk)
+
+
 @app.route("/login", methods=["GET", "POST"])
 def login():
     areas = list(mongo.db.areas.find())
