@@ -1,5 +1,10 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h2>This is where your walk will show walking up ... {{ walk.hill_name }}</h2>
+    <div class="row">
+        <div class="col s12 center-align">
+            <h3>{{ walk.hill_name }}</h3>
+            <p>{{ walk.walk_text }}</p>
+        </div>    
+    </div>
 {% endblock %}
