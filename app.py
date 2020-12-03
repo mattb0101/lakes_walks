@@ -1,4 +1,5 @@
 import os
+from datetime import datetime
 from flask import (
     Flask, flash, render_template, url_for,
     redirect, request, session)
@@ -31,17 +32,47 @@ def area(area_name, hill_name):
     area = mongo.db.areas.find_one({"area": area_name})
     hills = list(mongo.db.hills.find({"area": area_name}))
     hill = mongo.db.hills.find_one({"name": hill_name})
-    comments = list(mongo.db.comments.find())
+    
     return render_template(
         "areas.html", hills=hills, areas=areas,
-         area=area, groups=groups, hill=hill, comments=comments)
+         area=area, groups=groups, hill=hill)
 
 
 @app.route("/walk/<hill_name>")
 def walk(hill_name):
     areas = list(mongo.db.areas.find())
     walk = mongo.db.walks.find_one({"hill_name": hill_name})
-    return render_template("walk.html", walk=walk, areas=areas)
+    comments = list(mongo.db.comments.find())
+    return render_template("walk.html", walk=walk, areas=areas, comments=comments)
+
+
+@app.route("/hill_check")
+def hill_check():
+    flash("Yes I have walked this hill")
+    return
+
+
+@app.route("/user_comment/<hill_name>", methods=["GET", "POST"])
+def user_comment(hill_name):
+    areas = list(mongo.db.areas.find())
+    walk = mongo.db.walks.find_one({"hill_name": hill_name})
+    comments = list(mongo.db.comments.find())
+    timestamp = datetime.now()
+    
+    if request.method == "POST":
+        comment = {
+            "hill": hill_name,
+            "posted": timestamp,
+            "author": session["user"],
+            "comment_text": request.form.get("user_comment")
+        }
+        mongo.db.comments.insert_one(comment)
+        
+        flash("Comment Posted")
+        return render_template("walk.html", walk=walk, areas=areas, comments=comments)
+
+    return render_template("walk.html", walk=walk, areas=areas, comments=comments)
+
 
 
 @app.route("/login", methods=["GET", "POST"])
