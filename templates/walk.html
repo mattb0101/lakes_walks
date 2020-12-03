@@ -43,8 +43,11 @@
 								{% if comment.hill == walk.hill_name %}
 								<li class="collection-item avatar">
 									<i class="fas fa-user circle"></i>
-									<span>Posted by: {{ comment.author }}</span>
+									<span>Posted by: {{ comment.author }} - {{ comment.posted }}</span>
 									<p>{{ comment.comment_text }}</p>
+                                    {% if session.user == comment.author%}
+                                    <a href="{{ url_for('delete_comment', hill_name=walk.hill_name, comment_id=comment._id) }}" class="seconday-content right"><i class="fas fa-trash-alt"></i></a>
+                                    {% endif %}
 								</li>
 								{% endif %}
 								{% endfor %}

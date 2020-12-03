@@ -57,7 +57,7 @@ def user_comment(hill_name):
     areas = list(mongo.db.areas.find())
     walk = mongo.db.walks.find_one({"hill_name": hill_name})
     comments = list(mongo.db.comments.find())
-    timestamp = datetime.now()
+    timestamp = datetime.now().strftime("%d/%m/%Y")
     
     if request.method == "POST":
         comment = {
@@ -67,12 +67,23 @@ def user_comment(hill_name):
             "comment_text": request.form.get("user_comment")
         }
         mongo.db.comments.insert_one(comment)
-        
+
         flash("Comment Posted")
         return render_template("walk.html", walk=walk, areas=areas, comments=comments)
 
     return render_template("walk.html", walk=walk, areas=areas, comments=comments)
 
+
+@app.route("/delete_comment/<hill_name>/<comment_id>", methods=["GET", "POST"])
+def delete_comment(hill_name, comment_id):
+    areas = list(mongo.db.areas.find())
+    walk = mongo.db.walks.find_one({"hill_name": hill_name})
+    comments = list(mongo.db.comments.find())
+
+    mongo.db.comments.remove({"_id": ObjectId(comment_id)})
+    flash("Comment Deleted")
+
+    return render_template("walk.html", walk=walk, areas=areas, comments=comments)
 
 
 @app.route("/login", methods=["GET", "POST"])
