@@ -29,7 +29,7 @@
                                 <div class="fixed-action-btn">
                                     <a class="btn-floating btn-large halfway-fab green"><i class="fas fa-plus"></i></a>
                                     <ul>
-                                        <li><a href="{{ url_for('hill_check') }}" class="btn-floating halfway-fab red"><i class="fas fa-check"></i></a></li>
+                                        <li><a href="{{ url_for('hill_check', hill_name=hill.name, area_name=hill.area, group_name=hill.group) }}" class="btn-floating halfway-fab red"><i class="fas fa-check"></i></a></li>
                                     </ul>
                                 </div>
                             </div>

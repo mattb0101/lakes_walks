@@ -46,10 +46,37 @@ def walk(hill_name):
     return render_template("walk.html", walk=walk, areas=areas, comments=comments)
 
 
-@app.route("/hill_check")
-def hill_check():
+@app.route("/hill_check/<area_name>/<hill_name>/<group_name>", methods=["GET", "POST"])
+def hill_check(area_name, hill_name, group_name):
+    groups = list(mongo.db.groups.find({"area": area_name}))
+    areas = list(mongo.db.areas.find())
+    area = mongo.db.areas.find_one({"area": area_name})
+    hills = list(mongo.db.hills.find({"area": area_name}))
+    hill = mongo.db.hills.find_one({"name": hill_name})
+
+    already_checked = mongo.db.users.find_one(
+        {"username": session["user"], "hills_walked.hill_name": hill_name})
+
+    if already_checked:
+        flash("You have already checked this hill!")
+        return render_template(
+            "areas.html", hills=hills, areas=areas, area=area, groups=groups, hill=hill)
+
+    mongo.db.users.update(
+        {"username": session["user"]},
+        {
+            "$push": {
+                "hills_walked": {
+                    "$each": [
+                        {"hill_name": hill_name, "area_name": area_name, "group_name": group_name}]
+                }
+            }
+        }
+    )
+
     flash("Yes I have walked this hill")
-    return
+    return render_template(
+        "areas.html", hills=hills, areas=areas, area=area, groups=groups, hill=hill)
 
 
 @app.route("/user_comment/<hill_name>", methods=["GET", "POST"])
@@ -69,9 +96,11 @@ def user_comment(hill_name):
         mongo.db.comments.insert_one(comment)
 
         flash("Comment Posted")
-        return render_template("walk.html", walk=walk, areas=areas, comments=comments)
+        return render_template("walk.html", walk=walk,
+         areas=areas, comments=comments)
 
-    return render_template("walk.html", walk=walk, areas=areas, comments=comments)
+    return render_template("walk.html", walk=walk,
+     areas=areas, comments=comments)
 
 
 @app.route("/delete_comment/<hill_name>/<comment_id>", methods=["GET", "POST"])
