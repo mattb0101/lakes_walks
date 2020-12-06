@@ -27,7 +27,7 @@
             <div class="col s12 m4">
                 <div class="card green lighten-2">
                     <div class="card-content white-text">
-                        <span class="card-title">Walks Done</span>
+                        <span class="card-title">Hills Climbed</span>
                             <ul class="collapsible">
                                 {% for area, group in user.hills_walked| groupby('area_name') %}
                                     <li>
@@ -39,8 +39,8 @@
                                                     <ul class="collapsible">
                                                         <li>
                                                             <div class="collapsible-header green lighten-1">{{ group }}</div>
-                                                            {% for hill in hill %}
-                                                            <div class="collapsible-body green lighten-2"><i class="fas fa-mountain "></i>{{ hill.hill_name }}</div>
+                                                            {% for hill in hill|sort(attribute='hill_name') %}
+                                                            <div class="collapsible-body green lighten-2"><a href="{{ url_for('walk', hill_name=hill.hill_name ) }}"><i class="fas fa-mountain "></i> {{ hill.hill_name }}</a></div>
                                                             {% endfor %}
                                                         </li>
                                                     </ul>

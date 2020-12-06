@@ -29,3 +29,12 @@ Haweswater reservoir image taken from https://www.countryliving.com/uk/wildlife/
 
 
 Issue - the syntax for mongodb - web says ones thing but some things need quotes etc. - https://stackoverflow.com/questions/49658679/eq-invalid-syntax-mongo-db
+
+
+Walks done on profile page - used these :
+    Groupby - https://jbmoelker.github.io/jinja-compat-tests/filters/groupby/
+    Nested collapsibles - https://stackoverflow.com/questions/32506226/nested-collapsibles-with-materialize
+
+
+
+Comments posting twice and not always refeshing instantly!
