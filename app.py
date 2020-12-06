@@ -115,6 +115,21 @@ def delete_comment(hill_name, comment_id):
     return render_template("walk.html", walk=walk, areas=areas, comments=comments)
 
 
+@app.route("/profile/<username>", methods=["GET", "POST"])
+def profile(username):
+    areas = list(mongo.db.areas.find())
+    user = mongo.db.users.find_one({"username": username})
+
+    # gab session users username
+    username = mongo.db.users.find_one(
+        {"username": session["user"]})["username"]
+
+    if session["user"]:
+        return render_template("profile.html", username=username, areas=areas, user=user)
+    
+    return redirect(url_for('login'))
+
+
 @app.route("/login", methods=["GET", "POST"])
 def login():
     areas = list(mongo.db.areas.find())
@@ -180,20 +195,6 @@ def logout():
     flash("Logged out. Happy Walking!")
     session.pop("user")
     return redirect(url_for("index"))
-
-
-@app.route("/profile/<username>", methods=["GET", "POST"])
-def profile(username):
-    areas = list(mongo.db.areas.find())
-
-    # gab session users username
-    username = mongo.db.users.find_one(
-        {"username": session["user"]})["username"]
-
-    if session["user"]:
-        return render_template("profile.html", username=username, areas=areas)
-    
-    return redirect(url_for('login'))
 
 
 if __name__ == "__main__":

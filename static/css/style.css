@@ -46,3 +46,7 @@ body {
     position: static;
     padding: 0;
 }
+
+.walks_done_row {
+    margin-bottom: 0;
+}

@@ -1,5 +1,58 @@
 {% extends "base.html" %}
 
     {% block content %}
-        <h2>Welcome back {{ username }}</h2>
+        <div class="row">
+            <div class="col s12 m6 offset-m1">
+                <div class="card green lighten-2">
+                    <div class="card-content white-text">
+                        <span class="card-title">Hello there {{ username }}</span>
+                        <div class="row">
+                            <div class="col s12 m6">
+                                <div class="card">
+                                    <div class="card-image">
+                                        <img src="#" alt="Image of the User">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col s12 m6">
+                                <ul class="collection ">
+                                     <li class="collection-item green lighten-2">Name: {{ user.first_name }} {{ user.last_name }}</li>
+                                     <li class="collection-item green lighten-2">Email: {{ user.email }}</li>    
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col s12 m4">
+                <div class="card green lighten-2">
+                    <div class="card-content white-text">
+                        <span class="card-title">Walks Done</span>
+                            <ul class="collapsible">
+                                {% for area, group in user.hills_walked| groupby('area_name') %}
+                                    <li>
+                                        <div class="collapsible-header green"><i class="fas fa-globe"></i>{{ area }}</div>
+                                        {% for group, hill in group| groupby('group_name') %}
+                                        <div class="collapsible-body green lighten-1">
+                                            <div class="row walks_done_row">
+                                                <div class="col s12">
+                                                    <ul class="collapsible">
+                                                        <li>
+                                                            <div class="collapsible-header green lighten-1">{{ group }}</div>
+                                                            {% for hill in hill %}
+                                                            <div class="collapsible-body green lighten-2"><i class="fas fa-mountain "></i>{{ hill.hill_name }}</div>
+                                                            {% endfor %}
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>    
+                                        {% endfor %}
+                                    </li>    
+                                {% endfor %}
+                            </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
     {% endblock %}
