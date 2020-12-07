@@ -37,4 +37,4 @@ Walks done on profile page - used these :
 
 
 
-Comments posting twice and not always refeshing instantly!
+Comments posting twice and not always refeshing instantly! - This needs sorting and looking at!
