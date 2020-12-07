@@ -52,5 +52,9 @@ body {
     margin-bottom: 0;
 }
 
+.card form {
+    padding: 24px;
+}
+
 
 
