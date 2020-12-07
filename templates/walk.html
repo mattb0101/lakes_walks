@@ -2,6 +2,7 @@
 
 {% block content %}
 	<div class="row">
+
 		<div class="col s12 m10 l8 offset-m1 offset-l2 center-align">
 			<h3>{{ walk.hill_name }}</h3>
             <div class="card horizontal walk-header green lighten-2">
@@ -28,6 +29,7 @@
 				                </div>
 					</div>
 				</div>
+
 				<div class="col s12 m10 l8 offset-m1 offset-l2 left-align">
 					<div class="card green lighten-2">
 						<div class="card-content">
@@ -36,6 +38,7 @@
 						</div>
 					</div>
 				</div>
+
 				<div class="col s12 m10 l8 offset-m1 offset-l2">
 					<div class="card green lighten-2">
 						<div class="card-content">
@@ -53,16 +56,22 @@
 								{% endif %}
 								{% endfor %}
 							</ul>
-							<form class="white col s12" method="POST" action="{{ url_for('user_comment',  hill_name=walk.hill_name) }}">
-								<div class="input-field">
+                        </div>
+    
+						<form class="white col s12 " method="POST" action="{{ url_for('user_comment',  hill_name=walk.hill_name) }}">
+                            <div class="row">
+								<div class="input-field col s12">
 									<i class="fas fa-user-edit prefix"></i>
 									<textarea placeholder="Write your comment here" id="user_comment" name="user_comment" class="materialize-textarea text-black" required></textarea>
 									<label for="user_comment">Want to comment on this walk?</label>
 								</div>
-                                    <button class="btn waves-effect waves-light" type="submit" name="action">Submit<i class="fas fa-comment right"></i></button>
-                            </form>
-						</div>
-					</div>
+                            </div>
+                            <div class="row">
+                                <button class="btn waves-effect waves-light" type="submit" name="action">Submit<i class="fas fa-comment right"></i></button>
+                            </div>
+                        </form>
+                    </div>
 				</div>
 			</div>
+               
 {% endblock %}
