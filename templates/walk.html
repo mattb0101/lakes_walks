@@ -2,10 +2,10 @@
 
 {% block content %}
 	<div class="row">
-		<div class="col s12 m8 l8 offset-m2 offset-l2 center-align">
+		<div class="col s12 m10 l8 offset-m1 offset-l2 center-align">
 			<h3>{{ walk.hill_name }}</h3>
-			<div class="card horizontal green lighten-2">
-				<div class="card-image">
+            <div class="card horizontal walk-header green lighten-2">
+				<div class="card-image valign-wrapper">
 					<img src="{{ url_for('static', filename=walk.header_image_path) }}" alt="Image for " {{walk.hill_name}}>
 				                </div>
 					<div class="card-stacked">
@@ -15,7 +15,8 @@
 					</div>
 				</div>
 			</div>
-			<div class="col s12 m8 l8 offset-m2 offset-l2 left-align">
+
+			<div class="col s12 m10 l8 offset-m1 offset-l2 left-align">
 				<div class="card green lighten-2">
 					<div class="card-content">
 						<span class="card-title">The Walk</span>
@@ -27,7 +28,7 @@
 				                </div>
 					</div>
 				</div>
-				<div class="col s12 m8 l8 offset-m2 offset-l2 left-align">
+				<div class="col s12 m10 l8 offset-m1 offset-l2 left-align">
 					<div class="card green lighten-2">
 						<div class="card-content">
 							<span class="card-title">The Return</span>
@@ -35,7 +36,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="col s12 m8 l8 offset-m2 offset-l2">
+				<div class="col s12 m10 l8 offset-m1 offset-l2">
 					<div class="card green lighten-2">
 						<div class="card-content">
 							<ul class="collection">

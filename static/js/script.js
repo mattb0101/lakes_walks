@@ -1,4 +1,9 @@
 $(document).ready(function(){
+    let loadScreenWidth = $(document).width();
+    if (loadScreenWidth < 600 ) {
+        $(".walk-header").removeClass("horizontal")
+    }
+
     $('.sidenav').sidenav();
     $('.dropdown-trigger').dropdown({hover: false});
     $('.collapsible').collapsible();
@@ -6,4 +11,17 @@ $(document).ready(function(){
     // Resize comment and texzt area when typed in
     $('#user_comment').val();
     M.textareaAutoResize($('#user_comment'));
+    
+
+
+    // Adding this in as mobile screens dont want the horizontal class and 
+    $(window).resize(function() {
+        let screenWidth = $(window).width();
+        if (screenWidth < 600) {
+            $(".walk-header").removeClass("horizontal")
+        } else {
+            $(".walk-header").addClass("horizontal")
+        }
+    })
 });
+
