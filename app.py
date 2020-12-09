@@ -115,6 +115,11 @@ def delete_comment(hill_name, comment_id):
     return render_template("walk.html", walk=walk, areas=areas, comments=comments)
 
 
+@app.route("/search", methods=["GET", "POST"])
+def search():
+    return render_template("search_results.html")
+
+
 @app.route("/profile/<username>", methods=["GET", "POST"])
 def profile(username):
     areas = list(mongo.db.areas.find())
