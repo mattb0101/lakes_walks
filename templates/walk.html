@@ -46,7 +46,12 @@
 								{% for comment in comments %}
 								{% if comment.hill == walk.hill_name %}
 								<li class="collection-item avatar">
-									<i class="fas fa-user circle"></i>
+                                <!-- Cant get this bit working - Need to revist and look again when brain not dead! -->
+                                    {% if user.profile_image_name %}
+									    <img src="{{ url_for('file', filename=user.profile_image_name) }}" alt="" class="circle">
+                                    {% else %}
+                                        <i class="fas fa-user circle"></i>
+                                    {% endif %}
 									<span>Posted by: {{ comment.author }} - {{ comment.posted }}</span>
 									<p>{{ comment.comment_text }}</p>
                                     {% if session.user == comment.author%}

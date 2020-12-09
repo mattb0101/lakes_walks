@@ -25,6 +25,18 @@ def index():
     return render_template("index.html", areas=areas)
 
 
+@app.route("/upload", methods=["GET", "POST"])
+def upload():
+    if 'profile_image' in request.files:
+        profile_image = request.files['profile_image']
+        mongo.save_file(profile_image.filename, profile_image)
+        mongo.db.users.update({"username": session["user"]},
+         { "$set": {"profile_image_name": profile_image.filename}})
+
+        flash("Image uploaded")
+        return redirect(url_for('profile', username=session["user"]))
+
+
 @app.route("/area/<area_name>/<hill_name>")
 def area(area_name, hill_name):
     groups = list(mongo.db.groups.find({"area": area_name}))
@@ -36,6 +48,11 @@ def area(area_name, hill_name):
     return render_template(
         "areas.html", hills=hills, areas=areas,
          area=area, groups=groups, hill=hill)
+
+
+@app.route("/file/<filename>")
+def file(filename):
+    return mongo.send_file(filename)
 
 
 @app.route("/walk/<hill_name>")
@@ -85,6 +102,7 @@ def user_comment(hill_name):
     walk = mongo.db.walks.find_one({"hill_name": hill_name})
     comments = list(mongo.db.comments.find())
     timestamp = datetime.now().strftime("%d/%m/%Y")
+    user = mongo.db.users.find({"username": session["user"]})
     
     if request.method == "POST":
         comment = {
@@ -97,10 +115,10 @@ def user_comment(hill_name):
 
         flash("Comment Posted")
         return render_template("walk.html", walk=walk,
-         areas=areas, comments=comments)
+         areas=areas, comments=comments, user=user)
 
     return render_template("walk.html", walk=walk,
-     areas=areas, comments=comments)
+     areas=areas, comments=comments, user=user)
 
 
 @app.route("/delete_comment/<hill_name>/<comment_id>", methods=["GET", "POST"])
