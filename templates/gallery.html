@@ -1,5 +1,25 @@
-{% extends "base.html %}
+{% extends "base.html" %}
 
 {% block content%}
     <h3>Gallery</h3>
+        <div class="row">
+            <div class="col s12 m6">
+                <div class="card green lighten-2">
+                    <div class="card-content white-text">
+                        <form action="{{ url_for('upload_many') }}" method="POST" enctype="multipart/form-data">
+                                    <div class="file-field input-field">
+                                        <div class="btn">
+                                            <span>File</span>
+                                            <input type="file" name="gallery_images[]" autocomplete="off" multiple>
+                                        </div>
+                                        <div class="file-path-wrapper">
+                                            <input class="file-path validate" type="text">
+                                        </div>
+                                        <button class="btn" type="submit">Upload</button>
+                                    </div>
+                                </form>
+                    </div>
+                </div>
+            </div>
+        </div>
 {% endblock %}

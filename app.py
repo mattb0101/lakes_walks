@@ -37,6 +37,23 @@ def upload():
         return redirect(url_for('profile', username=session["user"]))
 
 
+@app.route("/upload_many", methods=["GET", "POST"])
+def upload_many():
+    if request.method == "POST":
+        if 'gallery_images[]' not in request.files:
+            flash("No files")
+            return redirect(url_for('gallery'))
+
+    gallery_images = request.files.getlist('gallery_images[]')
+    for gallery_image in gallery_images:
+        mongo.save_file(gallery_image.filename, gallery_image)
+        mongo.db.images.insert({"username": session["user"], 
+        "gallery_image_name": gallery_image.filename})
+
+        flash("Images uploaded")
+        return redirect(url_for('gallery'))
+
+
 @app.route("/area/<area_name>/<hill_name>")
 def area(area_name, hill_name):
     groups = list(mongo.db.groups.find({"area": area_name}))
@@ -135,6 +152,11 @@ def delete_comment(hill_name, comment_id):
 @app.route("/search", methods=["GET", "POST"])
 def search():
     return render_template("search_results.html")
+
+
+@app.route("/gallery")
+def gallery():
+    return render_template("gallery.html")
 
 
 @app.route("/profile/<username>", methods=["GET", "POST"])
