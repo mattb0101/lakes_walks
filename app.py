@@ -114,11 +114,10 @@ def user_comment(hill_name):
         mongo.db.comments.insert_one(comment)
 
         flash("Comment Posted")
-        return render_template("walk.html", walk=walk,
-         areas=areas, comments=comments, user=user)
+        return redirect(url_for("walk", hill_name=hill_name))
 
     return render_template("walk.html", walk=walk,
-     areas=areas, comments=comments, user=user)
+     areas=areas, comments=comments)
 
 
 @app.route("/delete_comment/<hill_name>/<comment_id>", methods=["GET", "POST"])
