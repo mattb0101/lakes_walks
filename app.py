@@ -129,7 +129,7 @@ def delete_comment(hill_name, comment_id):
     mongo.db.comments.remove({"_id": ObjectId(comment_id)})
     flash("Comment Deleted")
 
-    return render_template("walk.html", walk=walk, areas=areas, comments=comments)
+    return redirect(url_for("walk", hill_name=hill_name))
 
 
 @app.route("/search", methods=["GET", "POST"])
