@@ -5,7 +5,11 @@
         <div class="row">
             <div class="col s12 m10 l8 offset-m1">
                 <div class="card green lighten-2">
-                    {%%}
+                    {% for image in images %}
+                        <div class="card-image">
+                            <img src="{{ url_for('file', filename=image.gallery_image_name) }}" alt="">
+                        </div>
+                    {% endfor %}
                 </div>
             </div>
         </div>
