@@ -12,7 +12,8 @@ $(document).ready(function(){
     $('#user_comment').val();
     M.textareaAutoResize($('#user_comment'));
     $('.materialboxed').materialbox();
-    
+    $('.modal').modal();
+    $('select').formSelect();
 
 
     // Adding this in as mobile screens dont want the horizontal class and 

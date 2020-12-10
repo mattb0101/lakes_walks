@@ -68,6 +68,27 @@ def file(filename):
     return mongo.send_file(filename)
 
 
+@app.route("/walks")
+def walks():
+    return render_template("walks.html")
+
+
+@app.route("/publish_walk", methods=["GET", "POST"])
+def publish_walk():
+    if request.method == "POST":
+        walk = {
+            "walk_name": request.form.get("walk_name"),
+            "walk_header": request.form.get("overview"),
+            "walk_main_text1": request.form.get("walk"),
+            "walk_return": request.form.get("return"),
+            "walk_difficulty": request.form.get("difficulty"),
+            "user_created": session["user"]
+        }
+        flash("Thanks for sharing your walk with us!")
+
+        mongo.db.walks.insert_one(walk)
+        return redirect(url_for('walks'))
+
 @app.route("/walk/<hill_name>")
 def walk(hill_name):
     areas = list(mongo.db.areas.find())

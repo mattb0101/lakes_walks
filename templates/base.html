@@ -32,7 +32,7 @@
 			    <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="fas fa-bars"></i></a>
 			    <ul class="left hide-on-med-and-down">
 				    <li><a href="{{ url_for('index') }}">Home</a></li>
-                    <li><a href="#">Walks</a></li>
+                    <li><a href="{{ url_for('walks') }}">Walks</a></li>
 				    <li><a class="dropdown-trigger" href="#!"
 						data-target="dropdown1">Areas<i class="fas fa-caret-down right"></i></a>
 				    </li>
@@ -62,7 +62,7 @@
 	
 		<ul class="sidenav" id="mobile-demo">
 			<li><a href="{{ url_for('index') }}">Home</a></li>
-            <li><a href="#">Walks</a></li>
+            <li><a href="{{ url_for('walks') }}">Walks</a></li>
 			<li><a class="dropdown-trigger" href="#!" data-target="dropdown-phone">Areas<i class="fas fa-caret-down right"></i></a>
 			</li>
             <li><a href="{{ url_for('gallery') }}">Gallery</a></li>
