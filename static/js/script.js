@@ -11,6 +11,7 @@ $(document).ready(function(){
     // Resize comment and texzt area when typed in
     $('#user_comment').val();
     M.textareaAutoResize($('#user_comment'));
+    $('.materialboxed').materialbox();
     
 
 

@@ -62,10 +62,10 @@ main {
     padding: 24px;
 }
 
-@media screen only and (max-width: 600px) {
-    .nav-wrapper {
-        height: 50vh;
+/* @media only screen and (max-width: 600px) {
+    nav, .nav-wrapper {
+        height: 30vmin;
     }
-}
+} */
 
 
