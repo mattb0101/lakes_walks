@@ -41,3 +41,5 @@ Comments posting twice and not always refeshing instantly! - This needs sorting 
 
 Helping get the search bar in the nav-bar:
 https://codepen.io/riki-ar/pen/PLxZxP
+
+issue on updating and only updating fields there were noted

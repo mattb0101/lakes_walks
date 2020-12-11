@@ -90,6 +90,23 @@ def publish_walk():
         return redirect(url_for('walks'))
 
 
+@app.route("/edit_walk/<walk_id>", methods=["GET", "POST"])
+def edit_walk(walk_id):
+    if request.method == "POST":
+        walk = {
+            "walk_name": request.form.get("walk_name"),
+            "walk_header": request.form.get("overview"),
+            "walk_main_text1": request.form.get("walk"),
+            "walk_return": request.form.get("return"),
+            "walk_difficulty": request.form.get("difficulty"),
+            "user_created": session["user"]
+        }
+        mongo.db.walks.update({"_id": ObjectId(walk_id)}, walk)
+        flash("Thanks for sharing your walk with us!")
+
+        return redirect(url_for('user_walk', walk_name="Test 2"))
+
+
 # These next 2 are duplicates and should really be combined to try make one piece of code - Will look into this after getting the second one working!
 @app.route("/walk/<hill_name>")
 def walk(hill_name):
