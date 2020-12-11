@@ -89,10 +89,20 @@ def publish_walk():
         mongo.db.walks.insert_one(walk)
         return redirect(url_for('walks'))
 
+
+# These next 2 are duplicates and should really be combined to try make one piece of code - Will look into this after getting the second one working!
 @app.route("/walk/<hill_name>")
 def walk(hill_name):
     areas = list(mongo.db.areas.find())
     walk = mongo.db.walks.find_one({"hill_name": hill_name})
+    comments = list(mongo.db.comments.find())
+    return render_template("walk.html", walk=walk, areas=areas, comments=comments)
+
+
+@app.route("/user_walk/<walk_name>")
+def user_walk(walk_name):
+    areas = list(mongo.db.areas.find())
+    walk = mongo.db.walks.find_one({"walk_name": walk_name})
     comments = list(mongo.db.comments.find())
     return render_template("walk.html", walk=walk, areas=areas, comments=comments)
 
@@ -182,13 +192,14 @@ def gallery():
 def profile(username):
     areas = list(mongo.db.areas.find())
     user = mongo.db.users.find_one({"username": username})
+    walks = list(mongo.db.walks.find())
 
     # gab session users username
     username = mongo.db.users.find_one(
         {"username": session["user"]})["username"]
 
     if session["user"]:
-        return render_template("profile.html", username=username, areas=areas, user=user)
+        return render_template("profile.html", username=username, areas=areas, user=user, walks=walks)
     
     return redirect(url_for('login'))
 

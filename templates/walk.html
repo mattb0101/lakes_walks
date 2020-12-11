@@ -4,7 +4,11 @@
 	<div class="row">
 
 		<div class="col s12 m10 l8 offset-m1 offset-l2 center-align">
-			<h3>{{ walk.hill_name }}</h3>
+            {% if walk.walk_name %}
+                <h3>{{ walk.walk_name }}</h3>
+            {% else %}
+                <h3>{{ walk.hill_name }}</h3>
+            {% endif %}
             <div class="card horizontal walk-header green lighten-2">
 				<div class="card-image valign-wrapper">
 					<img src="{{ url_for('static', filename=walk.header_image_path) }}" alt="Image for " {{walk.hill_name}}>
