@@ -70,7 +70,8 @@ def file(filename):
 
 @app.route("/walks")
 def walks():
-    return render_template("walks.html")
+    walks = list(mongo.db.walks.find())
+    return render_template("walks.html", walks=walks)
 
 
 @app.route("/publish_walk", methods=["GET", "POST"])
