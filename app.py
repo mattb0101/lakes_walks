@@ -195,7 +195,9 @@ def delete_comment(hill_name, comment_id):
 
 @app.route("/search", methods=["GET", "POST"])
 def search():
-    return render_template("search_results.html")
+    search = request.form.get("search")
+    walks = list(mongo.db.walks.find({"$text": {"$search": search}}))
+    return render_template("search_results.html", walks=walks)
 
 
 @app.route("/gallery")
