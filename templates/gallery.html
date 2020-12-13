@@ -10,9 +10,9 @@
                             <div class="card green lighten-2">
                                 <div class="card-image">
                                     <img class="materialboxed responsive-img" src="{{ url_for('file', filename=image.gallery_image_name) }}" alt="">
-                                    <span class="card-title">{{ image.gallery_image_name }}</span>
                                 </div>
                                 <div class="card-content">
+                                    <span class="card-title text-bold">{{ image.gallery_image_title }}</span>
                                     <p>This is some info about the picture!</p>
                                     <span>Posted by: {{ image.username }}</span>
                                 </div>
@@ -37,7 +37,12 @@
                                 </div>
                             </div>
                             <div class="row center-align">
+                                {% if session.user %}
                                 <button class="btn" type="submit">Upload</button>
+                                {% else %}
+                                <button class="btn" type="submit" disabled>Upload</button>
+                                <p>If you want to upload any images please <a href="{{ url_for('login' ) }}">log in</a></p>
+                                {% endif %}
                             </div>
                         </form>
                     </div>

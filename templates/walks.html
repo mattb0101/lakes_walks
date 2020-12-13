@@ -10,16 +10,17 @@
         <div class="col s12 m6 ">
             <div class="card green lighten-2">
                 <div class="card-content center-align">
-                    <p>Want to publish one of your walks for everyone?</p>
-                </div>
-                <div class="card-action center-align">
-                    {% if session.user %}
-                    <a href="#walk_modal" class="btn modal-trigger">Click here!</a>
-                    {% else %}
-                    <a href="#walk_modal" class="btn modal-trigger" disabled>Click here!</a>
-                    <p>To upload one of your own walks, please <a href="{{ url_for('login') }}"><strong
-                                class="white-text">log in</strong></a></p>
-                    {% endif %}
+                    <div class="row">
+                        <p>Want to publish one of your walks for everyone?</p>
+                    </div>
+                    <div class="row center-align">
+                        {% if session.user %}
+                        <a href="#walk_modal" class="btn modal-trigger">Click here!</a>
+                        {% else %}
+                        <a href="#walk_modal" class="btn modal-trigger" disabled>Click here!</a>
+                        <p>To upload one of your own walks, please <a href="{{ url_for('login') }}"><strong class="white-text">log in</strong></a></p>
+                        {% endif %}
+                    </div>
                 </div>
             </div>
         </div>
@@ -39,7 +40,7 @@
                                 </div>
                             </div>
                         </div>
-                        {% endfor %}
+                    {% endfor %}
                 </div>
             </div>
         </div>

@@ -25,34 +25,6 @@ def index():
     return render_template("index.html", areas=areas)
 
 
-@app.route("/upload", methods=["GET", "POST"])
-def upload():
-    if 'profile_image' in request.files:
-        profile_image = request.files['profile_image']
-        mongo.save_file(profile_image.filename, profile_image)
-        mongo.db.users.update({"username": session["user"]},
-         { "$set": {"profile_image_name": profile_image.filename}})
-
-        flash("Image uploaded")
-        return redirect(url_for('profile', username=session["user"]))
-
-
-@app.route("/upload_many", methods=["GET", "POST"])
-def upload_many():
-    if request.method == "POST":
-        if "gallery_images[]" in request.files:
-            gallery_images = request.files.getlist('gallery_images[]')
-            for gallery_image in gallery_images:
-                mongo.save_file(gallery_image.filename, gallery_image)
-                mongo.db.images.insert({"username": session["user"], 
-                "gallery_image_name": gallery_image.filename})
-
-            flash("Images uploaded")
-            return redirect(url_for('gallery'))
-    
-    return render_template("gallery.html")
-
-
 @app.route("/area/<area_name>/<hill_name>")
 def area(area_name, hill_name):
     groups = list(mongo.db.groups.find({"area": area_name}))
@@ -201,7 +173,7 @@ def delete_comment(hill_name, comment_id):
 def search():
     search = request.form.get("search")
     walks = list(mongo.db.walks.find({"$text": {"$search": search}}))
-    return render_template("search_results.html", walks=walks)
+    return render_template("walks.html", walks=walks)
 
 
 @app.route("/gallery")
@@ -209,6 +181,34 @@ def gallery():
     images = list(mongo.db.images.find())
 
     return render_template("gallery.html", images=images)
+
+
+@app.route("/upload", methods=["GET", "POST"])
+def upload():
+    if 'profile_image' in request.files:
+        profile_image = request.files['profile_image']
+        mongo.save_file(profile_image.filename, profile_image)
+        mongo.db.users.update({"username": session["user"]},
+         { "$set": {"profile_image_name": profile_image.filename}})
+
+        flash("Image uploaded")
+        return redirect(url_for('profile', username=session["user"]))
+
+
+@app.route("/upload_many", methods=["GET", "POST"])
+def upload_many():
+    if request.method == "POST":
+        if "gallery_images[]" in request.files:
+            gallery_images = request.files.getlist('gallery_images[]')
+            for gallery_image in gallery_images:
+                mongo.save_file(gallery_image.filename, gallery_image)
+                mongo.db.images.insert({"username": session["user"], 
+                "gallery_image_name": gallery_image.filename})
+
+            flash("Images uploaded")
+            return redirect(url_for('gallery'))
+    
+    return render_template("gallery.html")
 
 
 @app.route("/profile/<username>", methods=["GET", "POST"])
