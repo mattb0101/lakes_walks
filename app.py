@@ -39,15 +39,18 @@ def upload():
 
 @app.route("/upload_many", methods=["GET", "POST"])
 def upload_many():
-    if "gallery_images[]" in request.files:
-        gallery_images = request.files.getlist('gallery_images[]')
-        for gallery_image in gallery_images:
-            mongo.save_file(gallery_image.filename, gallery_image)
-            mongo.db.images.insert({"username": session["user"], 
-            "gallery_image_name": gallery_image.filename})
+    if request.method == "POST":
+        if "gallery_images[]" in request.files:
+            gallery_images = request.files.getlist('gallery_images[]')
+            for gallery_image in gallery_images:
+                mongo.save_file(gallery_image.filename, gallery_image)
+                mongo.db.images.insert({"username": session["user"], 
+                "gallery_image_name": gallery_image.filename})
 
-        flash("Images uploaded")
-        return redirect(url_for('gallery'))
+            flash("Images uploaded")
+            return redirect(url_for('gallery'))
+    
+    return render_template("gallery.html")
 
 
 @app.route("/area/<area_name>/<hill_name>")
