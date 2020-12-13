@@ -52,17 +52,24 @@ def walks():
 @app.route("/publish_walk", methods=["GET", "POST"])
 def publish_walk():
     if request.method == "POST":
-        walk = {
-            "walk_name": request.form.get("walk_name"),
-            "walk_header": request.form.get("overview"),
-            "walk_main_text1": request.form.get("walk"),
-            "walk_return": request.form.get("return"),
-            "walk_difficulty": request.form.get("difficulty"),
-            "user_created": session["user"]
-        }
-        flash("Thanks for sharing your walk with us!")
+        if 'walk_image' in request.files:
+            walk_image = request.files['walk_image']
+            mongo.save_file(walk_image.filename, walk_image)
+        
+            walk = {
+                "walk_name": request.form.get("walk_name"),
+                "walk_header": request.form.get("overview"),
+                "walk_main_text1": request.form.get("walk"),
+                "walk_return": request.form.get("return"),
+                "walk_difficulty": request.form.get("difficulty"),
+                "user_created": session["user"],
+                "walk_image_name": walk_image.filename
+            }
+            flash("Thanks for sharing your walk with us!")
 
-        mongo.db.walks.insert_one(walk)
+            mongo.db.walks.insert_one(walk)
+            return redirect(url_for('walks'))
+        
         return redirect(url_for('walks'))
 
 
@@ -176,6 +183,7 @@ def search():
     return render_template("walks.html", walks=walks)
 
 
+# Gallery and uploading pictures
 @app.route("/gallery")
 def gallery():
     images = list(mongo.db.images.find())
