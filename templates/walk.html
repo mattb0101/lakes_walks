@@ -54,14 +54,14 @@
             <div class="card green lighten-2">
                 <div class="card-content">
                     <ul class="collection">
-                        {% for comment in comments %}
+                        {% for comment in comments|sort(attribute='posted', reverse = True) %}
                         {% if comment.hill == walk.hill_name %}
                         <li class="collection-item avatar">
                             <i class="fas fa-user circle"></i>
                             <span>Posted by: {{ comment.author }} - {{ comment.posted }}</span>
                             <p>{{ comment.comment_text }}</p>
                             {% if session.user == comment.author%}
-                            <a href="{{ url_for('delete_comment', hill_name=walk.hill_name, comment_id=comment._id) }}"
+                            <a href="{{ url_for('delete_comment', walk_name=walk.walk_name, comment_id=comment._id) }}"
                                 class="seconday-content right"><i class="fas fa-trash-alt"></i></a>
                             {% endif %}
                         </li>
@@ -71,7 +71,7 @@
                 </div>
     
                 <form class="green lighten-2" method="POST"
-                    action="{{ url_for('user_comment',  hill_name=walk.hill_name) }}">
+                    action="{{ url_for('user_comment',  walk_name=walk.walk_name) }}">
                     <div class="row">
                         <div class="input-field col s12">
                             <i class="fas fa-user-edit prefix"></i>

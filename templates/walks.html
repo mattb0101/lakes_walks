@@ -30,7 +30,7 @@
                 <div class="row">
                     {% for walk in walks %}
                         <div class="col s6 m4 l4">
-                            <a class="black-text" href="{{ url_for('user_walk', walk_name=walk.walk_name) }}">
+                            <a class="black-text" href="{{ url_for('walk', walk_name=walk.walk_name) }}">
                             <div class="card green lighten-2">
                                 <div class="card-image">
                                     <img class="responsive-img" src="{{ url_for('file', filename=walk.walk_image_name) }}" alt="">

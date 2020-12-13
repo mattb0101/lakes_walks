@@ -43,3 +43,5 @@ Helping get the search bar in the nav-bar:
 https://codepen.io/riki-ar/pen/PLxZxP
 
 issue on updating and only updating fields there were noted
+
+Pagination - Something that i would like to get involved - but not time to get this in and no teaching with the right stuff to work with this code that I can find!

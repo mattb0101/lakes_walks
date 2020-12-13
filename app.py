@@ -87,20 +87,11 @@ def edit_walk(walk_id):
         mongo.db.walks.update({"_id": ObjectId(walk_id)}, walk)
         flash("Thanks for sharing your walk with us!")
 
-        return redirect(url_for('user_walk', walk_name="Test 2"))
+        return redirect(url_for('user_walk', walk_name=request.form.get("walk_name")))
 
 
-# These next 2 are duplicates and should really be combined to try make one piece of code - Will look into this after getting the second one working!
-@app.route("/walk/<hill_name>")
-def walk(hill_name):
-    areas = list(mongo.db.areas.find())
-    walk = mongo.db.walks.find_one({"hill_name": hill_name})
-    comments = list(mongo.db.comments.find())
-    return render_template("walk.html", walk=walk, areas=areas, comments=comments)
-
-
-@app.route("/user_walk/<walk_name>")
-def user_walk(walk_name):
+@app.route("/walk/<walk_name>")
+def walk(walk_name):
     areas = list(mongo.db.areas.find())
     walk = mongo.db.walks.find_one({"walk_name": walk_name})
     comments = list(mongo.db.comments.find())
@@ -140,17 +131,17 @@ def hill_check(area_name, hill_name, group_name):
         "areas.html", hills=hills, areas=areas, area=area, groups=groups, hill=hill)
 
 
-@app.route("/user_comment/<hill_name>", methods=["GET", "POST"])
-def user_comment(hill_name):
+@app.route("/user_comment/<walk_name>", methods=["GET", "POST"])
+def user_comment(walk_name):
     areas = list(mongo.db.areas.find())
-    walk = mongo.db.walks.find_one({"hill_name": hill_name})
+    walk = mongo.db.walks.find_one({"walk_name": walk_name})
     comments = list(mongo.db.comments.find())
     timestamp = datetime.now().strftime("%d/%m/%Y")
     user = mongo.db.users.find({"username": session["user"]})
     
     if request.method == "POST":
         comment = {
-            "hill": hill_name,
+            "walk": walk_name,
             "posted": timestamp,
             "author": session["user"],
             "comment_text": request.form.get("user_comment")
@@ -158,22 +149,22 @@ def user_comment(hill_name):
         mongo.db.comments.insert_one(comment)
 
         flash("Comment Posted")
-        return redirect(url_for("walk", hill_name=hill_name))
+        return redirect(url_for("walk", walk_name=walk_name))
 
     return render_template("walk.html", walk=walk,
      areas=areas, comments=comments)
 
 
-@app.route("/delete_comment/<hill_name>/<comment_id>", methods=["GET", "POST"])
-def delete_comment(hill_name, comment_id):
+@app.route("/delete_comment/<walk_name>/<comment_id>", methods=["GET", "POST"])
+def delete_comment(walk_name, comment_id):
     areas = list(mongo.db.areas.find())
-    walk = mongo.db.walks.find_one({"hill_name": hill_name})
+    walk = mongo.db.walks.find_one({"walk_name": walk_name})
     comments = list(mongo.db.comments.find())
 
     mongo.db.comments.remove({"_id": ObjectId(comment_id)})
     flash("Comment Deleted")
 
-    return redirect(url_for("walk", hill_name=hill_name))
+    return redirect(url_for("walk", walk_name=walk_name))
 
 
 @app.route("/search", methods=["GET", "POST"])
