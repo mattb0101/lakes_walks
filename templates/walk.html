@@ -9,7 +9,7 @@
             {% else %}
             <h3>{{ walk.hill_name }}</h3>
             {% endif %}
-            {% if session.user == walk.user_created %}
+            {% if (session.user == walk.user_created or session.user == 'admin') %}
             <div class="row">
                 <div class="col s12 left-align">
                     <a href="#walk_edit_modal" class="btn modal-trigger">Edit</a>
@@ -18,7 +18,7 @@
             {% endif %}
             <div class="card horizontal walk-header green lighten-2">
                 <div class="card-image valign-wrapper">
-                    <img src="{{ url_for('static', filename=walk.header_image_path) }}" alt="Image for " {{walk.hill_name}}>
+                    <img src="{{ url_for('file', filename=walk.walk_image_name) }}" alt="Image for " {{walk.hill_name}}>
                 </div>
                 <div class="card-stacked">
                     <div class="card-content valign-wrapper">
@@ -125,6 +125,15 @@
                     <div class="input-field col s12">
                         <textarea id="return" name="return" class="materialize-textarea" required>{{ walk.walk_return }}</textarea>
                         <label for="return">The Return</label>
+                    </div>
+                </div>
+                <div class="file-field input-field">
+                    <div class="btn">
+                        <span>File</span>
+                        <input type="file" id="walk_image" name="walk_image">
+                    </div>
+                    <div class="file-path-wrapper">
+                        <input class="file-path validate" type="text">
                     </div>
                 </div>
                 <div class="row">

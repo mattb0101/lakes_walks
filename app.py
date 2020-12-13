@@ -76,18 +76,24 @@ def publish_walk():
 @app.route("/edit_walk/<walk_id>", methods=["GET", "POST"])
 def edit_walk(walk_id):
     if request.method == "POST":
-        walk = {
-            "walk_name": request.form.get("walk_name"),
-            "walk_header": request.form.get("overview"),
-            "walk_main_text1": request.form.get("walk"),
-            "walk_return": request.form.get("return"),
-            "walk_difficulty": request.form.get("difficulty"),
-            "user_created": session["user"]
-        }
-        mongo.db.walks.update({"_id": ObjectId(walk_id)}, walk)
-        flash("Thanks for sharing your walk with us!")
+        if 'walk_image' in request.files:
+            walk_image = request.files['walk_image']
+            mongo.save_file(walk_image.filename, walk_image)
 
-        return redirect(url_for('user_walk', walk_name=request.form.get("walk_name")))
+            walk = {
+                "walk_name": request.form.get("walk_name"),
+                "walk_header": request.form.get("overview"),
+                "walk_main_text1": request.form.get("walk"),
+                "walk_return": request.form.get("return"),
+                "walk_difficulty": request.form.get("difficulty"),
+                "walk_image_name": walk_image.filename
+            }
+            flash("This walk has been updated")
+
+            mongo.db.walks.update({"_id": ObjectId(walk_id)}, walk)
+            return redirect(url_for('walk', walk_name=request.form.get("walk_name")))
+
+        return redirect(url_for('walk', walk_name=request.form.get("walk_name")))
 
 
 @app.route("/walk/<walk_name>")
