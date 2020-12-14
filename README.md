@@ -116,7 +116,16 @@ NEED TO MAKE SOME OF THESE!!
 - Python is a programming language similar to javascript but trying to make code more readble and trying to help programmers with clear and logical code. 
 
 #### [flask](https://flask.palletsprojects.com/en/1.1.x/)
-- Flask is a python web framework, sometimes classed as a microframework as there are no particular tools or libraries required. Flask supports extensions to add things to your site and not its own library. 
+- Flask is a python web framework, sometimes classed as a microframework as there are no particular tools or libraries required. Flask supports extensions to add things to your site and not its own library.
+
+#### [MongoDB](https://www.mongodb.com/)
+- MongoDB is a NoSQL database program that use JSON like documents. A document oriented database has no set links between documents but allows for easy storage and retrival of data. 
+
+#### [PyMongo](https://pymongo.readthedocs.io/en/stable/)
+- PyMongo is a python tool used for joining python and MongoDb easily and allows easy access to a MongoDB without a python based webpage. 
+
+#### [Werkzeug](https://werkzeug.palletsprojects.com/en/1.0.x/)
+- Werkzeug is a WSGI (Web Server Gateway Interface) web application library that communicates with web applications through Python. I have used this for password hashing and generating
 
 #### [Github](https://github.com/)
 - A software development sharing platform used for hosting and sharing projects for open source, or team based projects. I was using github so other people can see, its easily hostable and can deploy easily.
@@ -128,14 +137,56 @@ NEED TO MAKE SOME OF THESE!!
 - A free and open source version control system that handles all projects and keeps version history in check.
 
 #### [Font Awesome](https://fontawesome.com/)
-- A font and icon based toolkit based on CSS - Wikipedia. I used font awesome icons to give a more visual appearance to the Happiness and Followers, it also gave the user a quick viewing of what was being affected. 
+- A font and icon based toolkit based on CSS - Wikipedia. I used font awesome icons to give a more visual appearance to the Happiness and Followers, it also gave the user a quick viewing of what was being affected.
+
+#### [Materialize](https://materializecss.com/)
+- Materialize is a front-end framework that ocmbines the principles of design, along with new technologies to give a great user experience and help coders create a functional responsive site. I have used this for the basic layout and a lot of the different CSS design elements to make sure this is clear and visible for all users on all devices. 
 
 #### [Chrome Developer Tools](https://developers.google.com/web/tools/chrome-devtools)
  - A set of Web developer tools built into Google Chrome that allows you to make changes to a website on the fly for testing purposes and be able to diagnose issues. I used this for the console, to be able to view results as changes were made during gameplay. This also allowed me to issue commands to the game to carry on if there was a bug while testing rather than having to start the whole game again. 
 
 # Testing
 
+Testing the User Stories that were previsouly defined in the UX section of the README:
+
+1. To be able to easily view walks whether I have a profile on the site or not.
+2. To be able to easily create a profile if I want to, and be able to change information on it if I needed to.
+3. Be able to easily find hills that I am looking for and to be able to to see information and walks linked to those hills.
+4. To be able to easily mark off the hills I have climbed and be easily able to see the results when I come back later.
+5. Be able to share walks of my own with other users of the site, and be able to go back and edit these in the future.
+6. Be able to comment on walks on the site to be able to give advice to other people using the site.
+7. Add pictures to the walks I do or comment on to make this a much more eye catching site to enjoy visiting
+
 # Deployment
+
+I have depolyed this to heroku taking the following steps:
+
+1. On the [Heroku Wesbite](https://dashboard.heroku.com), clikcing on "New" on the dashboard. Name the app and select the Europe region.
+
+2. When the app has been created, click on the "Deploy" tab, and under the section for "Deployment method", click GitHub.
+
+3. Confirm this link to GitHub, which will update the app based on commits and pushes to GitHub.
+
+4. In the code for the project in Gitpod (or your IDE), create a `<requirements.txt>` file, which stores all the things we are using on the site. Do this by typing `<pip3 freeze --local > requirements.txt>` into your CLI.
+
+5. As well as a requirments files, a `<Procfile>` is also needed to deploy. Create this by typing `<echo web: python app.py>` into your CLI. (`app.py` can be exchanged for the name of your python file, if you have named it `run.py` for example.)
+
+6. Make sure to `<git add .>` and `<git commit -m "...">` these files, then `<git push>`. This will push everything to GitHub which will sync up with heroku. 
+
+7. Back in Heroku under the "Settings" tab, there is a section called "Config Vars", click to reveal these and set the following vars:
+
+Key | Value
+----| ----
+I.P | 0.0.0.0
+MONGO_DBNAME | lakes_walks
+MONGO_URI | mongodb+srv://<your_username>:<your_password>@myfirstcluster.0i01h.mongodb.net/<your_db_name>?retryWrites=true&w=majority"
+PORT | 5000
+SECRET_KEY | <your_secret_key>
+
+8. From your app dahsboard, under "Deploy", make sure Automatic deploys are Enabled, and under "Manual Deploys", the correct branch you want to deploy is selected i.e. master.
+
+9. The site is now successfully deployed. 
+
 
 # Credits
 
@@ -179,45 +230,10 @@ Annoying how jinja stuff or something...takes into account commented out lines!
 
 
 
-### **Wireframes**
 
-I used a bit of time sketching up what i could to how i wanted the game to look as it was only a single page there wasnt a lot of need for design. The main design was the board to get right, along with planning the things to do, and the process of how turns would work. 
-
-<img src="./assets/img/basic-wireframes.jpg" width="450" height="175">
-<img src="./assets/img/full-board-design.jpg" width="250" height="350">
-<img src="./assets/img/things-to-look-at.jpg" width="250" height="350">
-<img src="./assets/img/turn-process-flow.jpg" width="200" height="200">
 
  
 
-## Technologies Used
-
-#### [HTML (Hypertext Markup Language)](https://www.w3schools.com/html/)
-- HTML is the standard markup language for programmers to use to display content on a webpage.
-
-#### [CSS (Cascading Style Sheets)](https://www.w3schools.com/css/)
-- CSS works alongside HTML to add style and effects to the website.
-
-#### [JavaScript](https://www.w3schools.com/js/default.asp)
-- JavaScript enables Interactive web pages and is an essential part of web applications.
-
-#### [jQuery](https://jquery.com/)
-- jQuery is a framework that enables easier manipulation of the DOM and i have used this to simplifiy the code from standard JavaScript.
-
-#### [Github](https://github.com/)
-- A software development sharing platform used for hosting and sharing projects for open source, or team based projects. I was using github so other people can see, its easily hostable and can deploy easily.
-
-#### [Gitpod](https://www.gitpod.io/)
-- An IDE (Integrated Development Environment) for GitHub that lets you quickly launch your projects in a ready-to-code environment.
-
-#### [Git](https://git-scm.com/)
-- A free and open source version control system that handles all projects and keeps version history in check.
-
-#### [Font Awesome](https://fontawesome.com/)
-- A font and icon based toolkit based on CSS - Wikipedia. I used font awesome icons to give a more visual appearance to the Happiness and Followers, it also gave the user a quick viewing of what was being affected. 
-
-#### [Chrome Developer Tools](https://developers.google.com/web/tools/chrome-devtools)
- - A set of Web developer tools built into Google Chrome that allows you to make changes to a website on the fly for testing purposes and be able to diagnose issues. I used this for the console, to be able to view results as changes were made during gameplay. This also allowed me to issue commands to the game to carry on if there was a bug while testing rather than having to start the whole game again.  
 
 
 ## Testing
