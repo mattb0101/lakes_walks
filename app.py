@@ -76,23 +76,16 @@ def publish_walk():
 @app.route("/edit_walk/<walk_id>", methods=["GET", "POST"])
 def edit_walk(walk_id):
     if request.method == "POST":
-        if 'walk_image' in request.files:
-            walk_image = request.files['walk_image']
-            mongo.save_file(walk_image.filename, walk_image)
+        walk = { "$set": {
+            "walk_name": request.form.get("walk_name"),
+            "walk_header": request.form.get("overview"),
+            "walk_main_text1": request.form.get("walk"),
+            "walk_return": request.form.get("return"),
+            "walk_difficulty": request.form.get("difficulty")
+        }}
+        flash("This walk has been updated")
 
-            walk = {
-                "walk_name": request.form.get("walk_name"),
-                "walk_header": request.form.get("overview"),
-                "walk_main_text1": request.form.get("walk"),
-                "walk_return": request.form.get("return"),
-                "walk_difficulty": request.form.get("difficulty"),
-                "walk_image_name": walk_image.filename
-            }
-            flash("This walk has been updated")
-
-            mongo.db.walks.update({"_id": ObjectId(walk_id)}, walk)
-            return redirect(url_for('walk', walk_name=request.form.get("walk_name")))
-
+        mongo.db.walks.update({"_id": ObjectId(walk_id)}, walk)
         return redirect(url_for('walk', walk_name=request.form.get("walk_name")))
 
 
@@ -142,7 +135,7 @@ def user_comment(walk_name):
     areas = list(mongo.db.areas.find())
     walk = mongo.db.walks.find_one({"walk_name": walk_name})
     comments = list(mongo.db.comments.find())
-    timestamp = datetime.now().strftime("%d/%m/%Y")
+    timestamp = datetime.now().strftime("%d/%m/%Y, %H:%M")
     user = mongo.db.users.find({"username": session["user"]})
     
     if request.method == "POST":
