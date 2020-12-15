@@ -56,7 +56,11 @@ def walk(walk_name):
     areas = list(mongo.db.areas.find())
     walk = mongo.db.walks.find_one({"walk_name": walk_name})
     comments = list(mongo.db.comments.find())
-    return render_template("walk.html", walk=walk, areas=areas, comments=comments)
+    if walk:
+        return render_template("walk.html", walk=walk
+        , areas=areas, comments=comments)
+    else:
+        return render_template("404.html")
 
 
 @app.route("/publish_walk", methods=["GET", "POST"])
@@ -302,8 +306,6 @@ def register():
 
 @app.route("/logout")
 def logout():
-    areas = list(mongo.db.areas.find())
-
     flash("Logged out. Happy Walking!")
     session.pop("user")
     return redirect(url_for("index"))

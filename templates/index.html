@@ -1,38 +1,42 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <div class="row center-align">
-        <div class="card col s12 m10 offset-m1 green lighten-2">
-            <h3>Walking in the Lakes</h3>
+        <div class="row center-align s12 m10 offset-m1">
+            <h2>Walking in the Lakes</h2>
         </div>
         <div class="row">
             <div class="col s12 m5 offset-m1 ">
                 <div class="card green lighten-2">
                     <div class="card-content">
-                        General Intro and stuff here
+                        <h4>Welcome!</h4>
+                        <p>If you're here, that probably means youre a fan of walking! Whether you do it for fitness, for leisure or to push yourself further, there are lots of similar minded people</p><br>
+                        <p>Here you can talk with other people, share ideas, pictures of your adventures, advice and even your own walks!</p><br>
+                        <p>If you are doing this to push yourself and try to conquer all the peaks in the Lake District, then you can tick off hills when youve climbed them and keep track of what you have left to do. </p>
                     </div>
                 </div>
             </div>
             <div class="col s12 m5">
                 <div class="card green lighten-2">
                     <div class="card-content">
-                        Images in here
+                        <img class="responsive-img"  src="{{ url_for('static', filename='/img/haweswater-reservoir.jpg') }}" alt="Haweswater Reservoir Image">
+                        <img class="responsive-img"  src="{{ url_for('static', filename='/img/waterfall.jpg') }}" alt="Haweswater Reservoir Image">
                     </div>
                 </div>
             </div>
+        </div>
         <div class="row">
             <div class="col s12 m5 offset-m1">
                 <div class="card green lighten-2">
                     <div class="card-content">
-                        Site Instructions
-                        walks
-                        Areas
-                        Images
+                       <h4 class="valign-wrapper">Using the Site</h4>
+                       <p>On the <a href="{{ url_for('walks') }}">walks</a> page, there will be lots of different walks that cover different hills, and walks that other users have created. Post comments on these to help people improve, or to tell them just how much you enjoyed the walk!</p><br>
+                       <p>The Areas section has all the hills in the Lake district, sorted by area and group. On each hill there is a button to be able to check off if you have climbed this hill. This will then show on your profile so you can keep track!</p><br>
+                       <p>Yes we all love walking, but we also love seeing the Lake district, in the <a href="{{ url_for('gallery') }}">gallery</a>, you can upload pictures of your walks to show everyone some of the beautiful views youve had, or look through others to get you pumped to go exploring!</p>
                     </div>
                 </div>
             </div>
             <div class="col s12 m5">
-                <div class="card green lighten-2">
+                <div class="card green lighten-2 center-align">
                     <div class="card-content">
                         <p>If you want to become part of the community and share your walks, advice and maybe even some beautiful pictures you've taken, with other like minded ramblers...</p><br>
                         <a class="btn" href="{{ url_for('register') }}">Register here!</a><br><br>
@@ -43,6 +47,5 @@
                 </div>
             </div>
         </div>
-        </div>
-    </div>
+    
 {% endblock %}

@@ -16,7 +16,7 @@ $(document).ready(function(){
     $('select').formSelect();
 
 
-    // Adding this in as mobile screens dont want the horizontal class and 
+    // Adding this in as mobile screens dont want the horizontal class on the image and header image for the walk. 
     $(window).resize(function() {
         let screenWidth = $(window).width();
         if (screenWidth < 600) {

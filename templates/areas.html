@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 
     {% block content %}
-		<section class="container">
-			<div class="row ">
-                <div class="col s12 m10 offset-m1 center-align">
-                    <h3>{{ area.area }}</h3>
-                </div>
+		
+			<div class="row s12 m10 offset-m1 center-align">
+                    <h2>{{ area.area }}</h2>
+            </div>
+            <div class="row">
 				<div class="col s12 m4 l3 offset-m1 offset-l1">
 					<ul class="collapsible popout">
 						{% for group in groups %}
@@ -26,7 +26,11 @@
 					<div class="col s12 m6 l6">
 						<div class="card ">
 							<div class="card-image">
-								<img class="responsive-img" src="{{ url_for('static', filename=hill.image_path) }}" alt="mountain">
+                                {% if hill.image_path %}
+                                <img class="responsive-img" src="{{ url_for('static', filename=hill.image_path) }}" alt="{{ hill.name }}">
+                                {% else %}
+                                <img class="responsive-img green lighten-1 center-align" src="#" alt="No Image available for this hill yet">
+                                {% endif %}
 								{% if session.user %}
                                 <div class="fixed-action-btn">
                                     <a class="btn-floating btn-large halfway-fab green"><i class="fas fa-plus"></i></a>
@@ -38,24 +42,24 @@
                             </div>
 							<div class="card-content green lighten-1">
                                 <span class="card-title">{{ hill.name }}</span>
-                                <p>Height: {{ hill.height }}</p>
+                                <p>Height: {{ hill.height }}m</p>
                                 <p>Group: {{ hill.group }}</p>
                                 <p>Area: {{ hill.area }}</p>
-                                <p>{{ area.area }}</p>
 							</div>
 							<div class="card-action green darken-2 center-align">
 								<a href="{{ url_for('walk', walk_name=hill.name) }}">Walk for this Hill</a>
 							</div>
 						</div>
-                        
                     </div>
 
 				{% else %}
-                    <h3>Please Choose your hill!</h3>
+                    <div class="card col s12 m6 l6 green lighten-2">
+                        <div class="card-content">
+                            <p>Click on the group of hill you want to look at and then choose a hill from that list.</p>
+                        </div>
+                    </div>
                 {% endif %}
             </div>
-            
-        </section>
 		
     {% endblock content%}
 

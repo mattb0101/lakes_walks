@@ -41,7 +41,10 @@
                                 <p>{{ walk.walk_header }}</p>
                             </div>
                             <div class="card-action">
-                                <p>Difficulty: {{ walk.walk_difficulty }}</p>
+                                <p class="left">Difficulty: {{ walk.walk_difficulty }}</p>
+                                {% if walk.user_created %}
+                                <p class="right">Posted by: {{ walk.user_created }}</p>
+                                {% endif %}
                             </div>
                         </div>
                     </a>
