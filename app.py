@@ -32,14 +32,13 @@ def area(area_name, hill_name):
     area = mongo.db.areas.find_one({"area": area_name})
     hills = list(mongo.db.hills.find({"area": area_name}))
     hill = mongo.db.hills.find_one({"name": hill_name})
-    
-    return render_template(
-        "areas.html", hills=hills, areas=areas,
-         area=area, groups=groups, hill=hill)
+
+    return render_template("areas.html", hills=hills, areas=areas,
+                           area=area, groups=groups, hill=hill)
 
 
-@app.route("/file/<filename>")
-def file(filename):
+@app.route("/load_image/<filename>")
+def load_image(filename):
     return mongo.send_file(filename)
 
 
@@ -57,8 +56,8 @@ def walk(walk_name):
     walk = mongo.db.walks.find_one({"walk_name": walk_name})
     comments = list(mongo.db.comments.find())
     if walk:
-        return render_template("walk.html", walk=walk
-        , areas=areas, comments=comments)
+        return render_template("walk.html", walk=walk,
+                               areas=areas, comments=comments)
     else:
         return render_template("404.html")
 
@@ -69,7 +68,7 @@ def publish_walk():
         if 'walk_image' in request.files:
             walk_image = request.files['walk_image']
             mongo.save_file(walk_image.filename, walk_image)
-        
+
             walk = {
                 "walk_name": request.form.get("walk_name"),
                 "walk_header": request.form.get("overview"),
@@ -83,14 +82,14 @@ def publish_walk():
 
             mongo.db.walks.insert_one(walk)
             return redirect(url_for('walks'))
-        
+
         return redirect(url_for('walks'))
 
 
 @app.route("/edit_walk/<walk_id>", methods=["GET", "POST"])
 def edit_walk(walk_id):
     if request.method == "POST":
-        walk = { "$set": {
+        walk = {"$set": {
             "walk_name": request.form.get("walk_name"),
             "walk_header": request.form.get("overview"),
             "walk_main_text1": request.form.get("walk"),
@@ -100,7 +99,9 @@ def edit_walk(walk_id):
         flash("This walk has been updated")
 
         mongo.db.walks.update({"_id": ObjectId(walk_id)}, walk)
-        return redirect(url_for('walk', walk_name=request.form.get("walk_name")))
+        return redirect(url_for('walk',
+                                walk_name=request.form.get("walk_name")))
+
 
 @app.route("/delete_walk/<walk_id>", methods=["GET", "POST"])
 def delete_walk(walk_id):
@@ -110,7 +111,8 @@ def delete_walk(walk_id):
 
 
 # On a hill checking to say you have walked it
-@app.route("/hill_check/<area_name>/<hill_name>/<group_name>", methods=["GET", "POST"])
+@app.route("/hill_check/<area_name>/<hill_name>/<group_name>",
+           methods=["GET", "POST"])
 def hill_check(area_name, hill_name, group_name):
     groups = list(mongo.db.groups.find({"area": area_name}))
     areas = list(mongo.db.areas.find())
@@ -119,28 +121,23 @@ def hill_check(area_name, hill_name, group_name):
     hill = mongo.db.hills.find_one({"name": hill_name})
 
     already_checked = mongo.db.users.find_one(
-        {"username": session["user"], "hills_walked.hill_name": hill_name, "hills_walked.group_name": group_name})
+        {"username": session["user"], "hills_walked.hill_name": hill_name,
+         "hills_walked.group_name": group_name})
 
     if already_checked:
         flash("You have already checked this hill!")
-        return render_template(
-            "areas.html", hills=hills, areas=areas, area=area, groups=groups, hill=hill)
+        return render_template("areas.html", hills=hills, areas=areas,
+                               area=area, groups=groups, hill=hill)
 
     mongo.db.users.update(
         {"username": session["user"]},
-        {
-            "$push": {
-                "hills_walked": {
-                    "$each": [
-                        {"hill_name": hill_name, "area_name": area_name, "group_name": group_name}]
-                }
-            }
-        }
-    )
+        {"$push": {"hills_walked": {"$each": [
+                        {"hill_name": hill_name, "area_name": area_name,
+                         "group_name": group_name}]}}})
 
     flash("Yes I have walked this hill")
-    return render_template(
-        "areas.html", hills=hills, areas=areas, area=area, groups=groups, hill=hill)
+    return render_template("areas.html", hills=hills, areas=areas,
+                           area=area, groups=groups, hill=hill)
 
 
 # Routes that look at adding and deleting comments
@@ -150,8 +147,7 @@ def user_comment(walk_name):
     walk = mongo.db.walks.find_one({"walk_name": walk_name})
     comments = list(mongo.db.comments.find())
     timestamp = datetime.now().strftime("%d/%m/%Y, %H:%M")
-    user = mongo.db.users.find({"username": session["user"]})
-    
+
     if request.method == "POST":
         comment = {
             "walk": walk_name,
@@ -165,15 +161,11 @@ def user_comment(walk_name):
         return redirect(url_for("walk", walk_name=walk_name))
 
     return render_template("walk.html", walk=walk,
-     areas=areas, comments=comments)
+                           areas=areas, comments=comments)
 
 
 @app.route("/delete_comment/<walk_name>/<comment_id>", methods=["GET", "POST"])
 def delete_comment(walk_name, comment_id):
-    areas = list(mongo.db.areas.find())
-    walk = mongo.db.walks.find_one({"walk_name": walk_name})
-    comments = list(mongo.db.comments.find())
-
     mongo.db.comments.remove({"_id": ObjectId(comment_id)})
     flash("Comment Deleted")
 
@@ -201,8 +193,8 @@ def upload():
     if 'profile_image' in request.files:
         profile_image = request.files['profile_image']
         mongo.save_file(profile_image.filename, profile_image)
-        mongo.db.users.update({"username": session["user"]},
-         { "$set": {"profile_image_name": profile_image.filename}})
+        mongo.db.users.update({"username": session["user"]}, {"$set": {
+                                "profile_image_name": profile_image.filename}})
 
         flash("Image uploaded")
         return redirect(url_for('profile', username=session["user"]))
@@ -215,12 +207,13 @@ def upload_many():
             gallery_images = request.files.getlist('gallery_images[]')
             for gallery_image in gallery_images:
                 mongo.save_file(gallery_image.filename, gallery_image)
-                mongo.db.images.insert({"username": session["user"], 
-                "gallery_image_name": gallery_image.filename})
+                mongo.db.images.insert({"username":
+                                       session["user"], "gallery_image_name":
+                                       gallery_image.filename})
 
             flash("Images uploaded")
             return redirect(url_for('gallery'))
-    
+
     return render_template("gallery.html")
 
 
@@ -241,8 +234,9 @@ def profile(username):
         {"username": session["user"]})["username"]
 
     if session["user"]:
-        return render_template("profile.html", username=username, areas=areas, user=user, walks=walks)
-    
+        return render_template("profile.html", username=username,
+                               areas=areas, user=user, walks=walks)
+
     return redirect(url_for('login'))
 
 
@@ -255,12 +249,13 @@ def login():
             {"username": request.form.get("username").lower()})
 
         if user:
-            if check_password_hash(
-                user["password"], request.form.get("password")):
+            if check_password_hash(user["password"],
+                                   request.form.get("password")):
                 session["user"] = request.form.get("username").lower()
                 flash("Successfully logged in, welcome back")
-                return redirect(url_for("profile", username=session["user"], areas=areas))
-            
+                return redirect(url_for("profile", username=session["user"],
+                                areas=areas))
+
             else:
                 flash("password wrong")
                 return redirect(url_for("login"))
@@ -281,7 +276,7 @@ def register():
         existing_user = mongo.db.users.find_one(
             {"username": request.form.get("username").lower()})
 
-        # if the username already exists then display a 
+        # if the username already exists then display a
         # flash message telling the user
         if existing_user:
             flash("This username already exists, please choose another")
@@ -299,8 +294,9 @@ def register():
         # putting the new user into the 'session' cookie
         session["user"] = request.form.get("username").lower()
         flash("Registration Successful!")
-        # This return just goes to the index right now, havent built any kind of profile page
-        return redirect(url_for("index"))
+
+        return redirect(url_for("profile"))
+
     return render_template("register.html", areas=areas)
 
 
@@ -314,4 +310,4 @@ def logout():
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
             port=int(os.environ.get("PORT")),
-            debug=True) # Make sure this set to false when deployed!
+            debug=True)

@@ -17,7 +17,7 @@
                         {% if session.user %}
                         <a href="#walk_modal" class="btn modal-trigger">Click here!</a>
                         {% else %}
-                        <a href="#walk_modal" class="btn modal-trigger" disabled>Click here!</a>
+                        <a href="#walk_modal" class="btn modal-trigger disabled">Click here!</a>
                         <p>To upload one of your own walks, please <a href="{{ url_for('login') }}"><strong class="white-text">log in</strong></a></p>
                         {% endif %}
                     </div>
@@ -33,7 +33,7 @@
                     <a class="black-text" href="{{ url_for('walk', walk_name=walk.walk_name) }}">
                         <div class="card large hoverable green lighten-2">
                             <div class="card-image">
-                                <img class="responsive-img" src="{{ url_for('file', filename=walk.walk_image_name) }}"
+                                <img class="responsive-img" src="{{ url_for('load_image', filename=walk.walk_image_name) }}"
                                     alt="">
                             </div>
                             <div class="card-content">
@@ -77,19 +77,19 @@
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
-                        <textarea id="overview" name="overview" value="Enter a brief overview of your walk"  class="materialize-textarea" required></textarea>
+                        <textarea id="overview" name="overview" placeholder="Enter a brief overview of your walk"  class="materialize-textarea" required></textarea>
                         <label for="overview">Overview</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
-                        <textarea id="walk" name="walk" value="Enter Details for the walk"  class="materialize-textarea" required></textarea>
+                        <textarea id="walk" name="walk" placeholder="Enter Details for the walk"  class="materialize-textarea" required></textarea>
                         <label for="walk">The Walk</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
-                        <textarea id="return" name="return" value="Enter Details for the return"  class="materialize-textarea" required></textarea>
+                        <textarea id="return" name="return" placeholder="Enter Details for the return"  class="materialize-textarea" required></textarea>
                         <label for="return">The Return</label>
                     </div>
                 </div>

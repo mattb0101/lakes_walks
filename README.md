@@ -56,6 +56,7 @@ Even though this is mainly focused around the back-end database, I have still tr
 
 NEED TO MAKE SOME OF THESE!!
 
+
 # Features
 
 ## Existing Features
@@ -164,6 +165,12 @@ NEED TO MAKE SOME OF THESE!!
 
 Testing the User Stories that were previsouly defined in the UX section of the README:
 
+Key: 
+- E - Expected
+- T - Testing
+- R - Results
+- F - Fixes 
+
 1. To be able to easily view walks whether I have a profile on the site or not.
 
     - E. To go to the site as a non user and view the walks on the site at all screen sizes.
@@ -213,6 +220,11 @@ Testing the User Stories that were previsouly defined in the UX section of the R
 # Fix
 * I did Z to the code because D
 
+[HTML validator](https://validator.w3.org/) - ran through, couple of issues, Jinja erors but not sure if validator is capable of seeing these? fixed and re-ran.
+[CSS Validator](https://jigsaw.w3.org/css-validator/) - No Errors
+[JavaScript Validator](https://jshint.com/) - few missed Semicolons - Fixed and re-ran
+[Python Validator](http://pep8online.com/) - Fixed all the line break, white space and under and over indents - Re-Ran and no errors.
+
 # Bugs Discovered
 
 When on the Gallery or Walks page, the dropdown list for the Areas page did not show any results. The Areas dropdown was on the base document so was not sure why it was only happening on these two pages.
@@ -222,6 +234,8 @@ After some searching, the functions that controlled these pages did not have the
 `<return render_template("gallery.html", images=images, areas=areas)>`
 
 A lot of the time during working and testing the comments, I had issues with comments posting multiple times and them not showing up until the page was refreshed. A long time going through and trying to figure out if there were bugs somewhere, all lead me to see that I had typed `<retun render_templates>` and not `<return redirect>` which seemed to be causing issues and resending forms. Changing the code fixed the issue.
+
+When I was looking to edit walks and I updated them, the page brought back a blank page with no information and sometimes deleted fields. After some testing and reading of the mongoDB documentation, the route needed to include a `<{"$set">` before the array so that it only set the fields in this list and left other exisitng ones alone.
 
 
 # Deployment
@@ -262,7 +276,22 @@ SECRET_KEY | <your_secret_key>
 - CSS
 - Javascript
 - [jQuery](https://jquery.com/) used this for a lot of my javascript, lots of use of the documentation on there to use it properly.
-- [Font Awesome](https://fontawesome.com/)
+- [Font Awesome](https://fontawesome.com/) used for logos and icons across the site.
+- [Materialize](https://materializecss.com/) I used this as the main layout builder for the website. This provided lots of really useful tools to build a responsive layout as I mainly focused on the database.
+- [Code Institute Full Stack Course](https://codeinstitute.net/) - I used the lessons a lot, re-watching videos and going over things again. Some things are based on the task master mini project so there is a lot of similar code.
+- [A Codepen piece](https://codepen.io/riki-ar/pen/PLxZxP) That helped me getting the search bar into the nav bar along with all the other elements. 
+- [Programiz](https://www.programiz.com/python-programming/function-argument) - Think this should be available somewhere else and was maybe covered on the course, but I found it here for setting default values or null values for fucntion parameters.
+- [Where2Walk](https://where2walk.co.uk/) was a really helpful site for inspiration and as I couldnt visit the lake district because of COVID, I took the walk content from here to be able to push things to the site for submission (These will be removed and one written by myself or others will be put in).
+- [Picture Uploads](https://www.youtube.com/watch?v=DsgAuceHha4) - This youtube video was immensley helpful to learn how to upload to MongoDB and then return images to the website.
+- [Multiple Picture Uploads](https://tutorial101.blogspot.com/2020/02/python-flask-multiple-files-upload.html) - This was something I wanted to make possible so this tutorial video and code was really good at helping me understand how it worked.
+- [Stack Overflow](https://stackoverflow.com/questions/9578348/best-way-to-execute-js-only-on-specific-page) helped me get rid of an error that was occuring with everypage trying to run some JavaScript on textarea that didnt exist. This helped make it so that code only ran on the one page.
+ - [MongoDB syntax](https://stackoverflow.com/questions/49658679/eq-invalid-syntax-mongo-db) - From reading the mongoDB documents things were not working, but this article helped me note the differences.
+ - [Nested Collapsibles](https://stackoverflow.com/questions/32506226/nested-collapsibles-with-materialize) and [Group By](https://jbmoelker.github.io/jinja-compat-tests/filters/groupby/) - These two things helped with calling the list of walks people had done onto their profile as this was coming from a nested array and  would need to bring back values into a Materialize collapsible with 3 layers not just 2.
+
+### ***Media***
+- Haweswater reservoir image taken from [country living website](https://www.countryliving.com/uk/wildlife/countryside/a22099046/lost-cumbrian-village-mardale-green-heatwave-dries-haweswater-reservoir/)
+- [High Street](https://en.wikipedia.org/wiki/High_Street_(Lake_District)) picture came from Wikipedia.
+- All other pictures on the site were taken by myself. 
 
 ### ***Acknowledgements***
 - My parents for dragging me up hills and taking me to the lake district a lot growing up to help me build a love for it to inspire this project. 
@@ -273,72 +302,6 @@ SECRET_KEY | <your_secret_key>
 
 
 
-Taking the walks from www.where2walk.co.uk as I cant go and do walks in the lakes for a test run.
-
-Haweswater reservoir image taken from https://www.countryliving.com/uk/wildlife/countryside/a22099046/lost-cumbrian-village-mardale-green-heatwave-dries-haweswater-reservoir/
-
-
-Issue - the syntax for mongodb - web says ones thing but some things need quotes etc. - https://stackoverflow.com/questions/49658679/eq-invalid-syntax-mongo-db
-
-
-Walks done on profile page - used these :
-    Groupby - https://jbmoelker.github.io/jinja-compat-tests/filters/groupby/
-    Nested collapsibles - https://stackoverflow.com/questions/32506226/nested-collapsibles-with-materialize
-
-
-
-Comments posting twice and not always refeshing instantly! - This needs sorting and looking at!
-
-Helping get the search bar in the nav-bar:
-https://codepen.io/riki-ar/pen/PLxZxP
 
 issue on updating and only updating fields there were noted
-
-Pagination - Something that i would like to get involved - but not time to get this in and no teaching with the right stuff to work with this code that I can find!
-
-Setting parameters defaults
-https://www.programiz.com/python-programming/function-argument
-
-
-Annoying how jinja stuff or something...takes into account commented out lines!
-
-
-
-
-
-
-
-
-
-
- 
-
-
-
-
-
-
-
-
-### ***Content***
-- HTML
-- CSS
-- Javascript
-- [jQuery](https://jquery.com/) used this for a lot of my javascript, lots of use of the documentation on there to use it properly.
-- [Font Awesome](https://fontawesome.com/)
-- [Google Fonts](https://fonts.google.com/)
-- [w3schools](https://www.w3schools.com/) for hints and tips and furthering my knowledge of attributes and elements learnt so far. Two main things were for [Last Child Selector](https://www.w3schools.com/cssref/sel_last-child.asp) and researching [Timing Events](https://www.w3schools.com/js/js_timing.asp)
-- [A Codepen piece](https://codepen.io/_Billy_Brown/pen/bzwtJ) That gave me some help and tips and was the basis of making the dice that rolled.
-- [Tic Tac Toe](https://www.codeproject.com/Articles/814420/Two-Player-TicTacToe-D-Game-using-jQuery) game that was very useful in helping with working out how to have a game with multiple players in.
-- [CSS Tricks](https://css-tricks.com/ids-cannot-start-with-a-number/) to help when I needed my spaces to start with a number but standard CSS script does not let the id be a number, this showed me the way to get that sorted.
-- Stack Overflow was the biggest help during some of this project as I had taken on a lot of work that I needed to learn how to do certain things. 
-    - [jQuery Refreshing](https://stackoverflow.com/questions/5404839/how-can-i-refresh-a-page-with-jquery) was something I used a lot during testing with quick ability to be able to start the game again with a button.
-    - The computers were automated and therefore needed to [auto press buttons](https://stackoverflow.com/questions/18646881/auto-click-button-element-on-page-load-using-jquery), This was pretty helpful with trying to get them working at a decent level. 
-    - The [Opportunity and Experience Cards](https://stackoverflow.com/questions/4550505/getting-a-random-value-from-a-javascript-array) were built from Arrays and getting random values from them and populating other arrays. (This may change after speaking with my mentor and saying to use objects as its easier.)
-    - [CSS wildcards](https://stackoverflow.com/questions/5110249/wildcard-in-css-for-classes) were something i needed to use for classes and the * didnt work, so this page helped with making any class starting with something.
-    - [Diabling and Enabling](https://stackoverflow.com/questions/1594952/jquery-disable-enable-submit-button) buttons with jQuery as i couldnt find this on the jQuery site, but wanted some buttons like the Dice roll button to not always be active.
-    - [Set Timeout](https://stackoverflow.com/questions/30107010/jquery-settimeout-function) was a great thing i learnt from this so that the game could be slowed down a bit and function at a pace the eye could see. 
-    - [Fieldsets and Legends](https://stackoverflow.com/questions/113640/which-css-tag-creates-a-box-like-this-with-title) was soemthing that I found helpful creating the cards boxes so that the title didnt take up much space and wasnt inside the box and another element needing to be visible. 
-    - [Backdrop filter](https://stackoverflow.com/questions/27583937/how-can-i-make-a-css-glass-blur-effect-work-for-an-overlay) This was perfect for the start of the game, it blurred the game behind and gave focus to the rules and intro. **The validator throws an error on this function and says it does not exist. It works perfectly but is not recognised by the CSS validator**
-    - [Last item in Array](https://stackoverflow.com/questions/3216013/get-the-last-item-in-an-array) was a big part of trying to sort out the Opportunity cards, but i am not sure it fully works with what i want to do. 
 

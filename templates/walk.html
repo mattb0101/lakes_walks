@@ -25,7 +25,7 @@
             {% endif %}
             <div class="card horizontal walk-header green lighten-2">
                 <div class="card-image valign-wrapper">
-                    <img src="{{ url_for('file', filename=walk.walk_image_name) }}" alt="Image for " {{walk.hill_name}}>
+                    <img src="{{ url_for('load_image', filename=walk.walk_image_name) }}" alt="Image for " {{walk.hill_name}}>
                 </div>
                 <div class="card-stacked">
                     <div class="card-content valign-wrapper">
@@ -40,10 +40,10 @@
                 <div class="card-content">
                     <span class="card-title">The Walk</span>
                     <!-- There must be an easier way to do this so it looks at all the ones there and doesnt leave spaces -->
-                    <p style="white-space: pre-wrap">{{ walk.walk_main_text1 }}</p><br>
-                    <p style="white-space: pre-wrap">{{ walk.walk_main_text2 }}</p><br>
-                    <p style="white-space: pre-wrap">{{ walk.walk_main_text3 }}</p><br>
-                    <p style="white-space: pre-wrap">{{ walk.walk_main_text4 }}</p><br>
+                    <p>{{ walk.walk_main_text1 }}</p><br>
+                    <p>{{ walk.walk_main_text2 }}</p><br>
+                    <p>{{ walk.walk_main_text3 }}</p><br>
+                    <p>{{ walk.walk_main_text4 }}</p><br>
                 </div>
             </div>
         </div>
@@ -82,8 +82,7 @@
                     <div class="row">
                         <div class="input-field col s12">
                             <i class="fas fa-user-edit prefix"></i>
-                            <textarea placeholder="Write your comment here" id="user_comment" name="user_comment"
-                                class="materialize-textarea text-black" required></textarea>
+                            <textarea placeholder="Write your comment here" id="user_comment" name="user_comment" class="materialize-textarea text-black" required></textarea>
                             <label for="user_comment">Want to comment on this walk?</label>
                         </div>
                     </div>
