@@ -6,7 +6,7 @@
                 <div class="card green lighten-2">
                     <div class="card-content white-text">
                         <span class="card-title">Hello there {{ username }}</span>
-                        <div class="row">
+                        <div class="row center-align">
                             <div class="col s12 m6">
                                 <div class="card green ">
                                     <div class="card-image">
@@ -15,6 +15,7 @@
                                 </div>
                                 <!-- Image Uploading - Translate this into a modal at some point! -->
                                 <form action="{{ url_for('upload') }}" method="POST" enctype="multipart/form-data">
+                                    <p>Want to add a picture to your profile?</p>
                                     <div class="file-field input-field">
                                         <div class="btn">
                                             <span>File</span>
@@ -23,6 +24,8 @@
                                         <div class="file-path-wrapper">
                                             <input class="file-path validate" type="text">
                                         </div>
+                                    </div>
+                                    <div class="row s12 m6 center-align">
                                         <button class="btn" type="submit">Upload</button>
                                     </div>
                                 </form>

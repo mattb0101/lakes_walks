@@ -43,10 +43,20 @@ def file(filename):
     return mongo.send_file(filename)
 
 
+# Routes for walks page and creating your own walk and editing it.
 @app.route("/walks")
 def walks():
+    areas = list(mongo.db.areas.find())
     walks = list(mongo.db.walks.find())
-    return render_template("walks.html", walks=walks)
+    return render_template("walks.html", walks=walks, areas=areas)
+
+
+@app.route("/walk/<walk_name>")
+def walk(walk_name):
+    areas = list(mongo.db.areas.find())
+    walk = mongo.db.walks.find_one({"walk_name": walk_name})
+    comments = list(mongo.db.comments.find())
+    return render_template("walk.html", walk=walk, areas=areas, comments=comments)
 
 
 @app.route("/publish_walk", methods=["GET", "POST"])
@@ -88,15 +98,14 @@ def edit_walk(walk_id):
         mongo.db.walks.update({"_id": ObjectId(walk_id)}, walk)
         return redirect(url_for('walk', walk_name=request.form.get("walk_name")))
 
-
-@app.route("/walk/<walk_name>")
-def walk(walk_name):
-    areas = list(mongo.db.areas.find())
-    walk = mongo.db.walks.find_one({"walk_name": walk_name})
-    comments = list(mongo.db.comments.find())
-    return render_template("walk.html", walk=walk, areas=areas, comments=comments)
+@app.route("/delete_walk/<walk_id>", methods=["GET", "POST"])
+def delete_walk(walk_id):
+    if request.method == "POST":
+        mongo.db.walks.delete_one({"_id": ObjectId(walk_id)})
+    return redirect(url_for('walks'))
 
 
+# On a hill checking to say you have walked it
 @app.route("/hill_check/<area_name>/<hill_name>/<group_name>", methods=["GET", "POST"])
 def hill_check(area_name, hill_name, group_name):
     groups = list(mongo.db.groups.find({"area": area_name}))
@@ -106,7 +115,7 @@ def hill_check(area_name, hill_name, group_name):
     hill = mongo.db.hills.find_one({"name": hill_name})
 
     already_checked = mongo.db.users.find_one(
-        {"username": session["user"], "hills_walked.hill_name": hill_name})
+        {"username": session["user"], "hills_walked.hill_name": hill_name, "hills_walked.group_name": group_name})
 
     if already_checked:
         flash("You have already checked this hill!")
@@ -130,6 +139,7 @@ def hill_check(area_name, hill_name, group_name):
         "areas.html", hills=hills, areas=areas, area=area, groups=groups, hill=hill)
 
 
+# Routes that look at adding and deleting comments
 @app.route("/user_comment/<walk_name>", methods=["GET", "POST"])
 def user_comment(walk_name):
     areas = list(mongo.db.areas.find())
@@ -176,9 +186,10 @@ def search():
 # Gallery and uploading pictures
 @app.route("/gallery")
 def gallery():
+    areas = list(mongo.db.areas.find())
     images = list(mongo.db.images.find())
 
-    return render_template("gallery.html", images=images)
+    return render_template("gallery.html", images=images, areas=areas)
 
 
 @app.route("/upload", methods=["GET", "POST"])
@@ -207,6 +218,12 @@ def upload_many():
             return redirect(url_for('gallery'))
     
     return render_template("gallery.html")
+
+
+@app.route("/delete_image/<image_id>")
+def delete_image(image_id):
+    mongo.db.images.remove({"_id": ObjectId(image_id)})
+    return redirect(url_for('gallery'))
 
 
 @app.route("/profile/<username>", methods=["GET", "POST"])

@@ -14,7 +14,8 @@
                                     <img class="materialboxed responsive-img" src="{{ url_for('file', filename=image.gallery_image_name) }}" alt="">
                                 </div>
                                 <div class="card-content">
-                                    <span class="card-title text-bold">{{ image.gallery_image_title }}</span>
+                                    <span class="card-title text-bold">{{ image.gallery_image_title }} 
+                                        {% if session.user == image.username %}<a class="btn-flat right" href="{{ url_for('delete_image', image_id=image._id) }}"><i class="fas fa-times"></i></a>{% endif %}</span>
                                     <p>This is some info about the picture!</p>
                                     <span>Posted by: {{ image.username }}</span>
                                 </div>

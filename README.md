@@ -151,31 +151,40 @@ Testing the User Stories that were previsouly defined in the UX section of the R
 
 1. To be able to easily view walks whether I have a profile on the site or not.
 
-    E. To go to the site as a non user and view the walks on the site at all screen sizes.
-    T. I went to the site from a fresh start and clicked the walks tab on the nav, then clicked on one of the walks on this page. I did this on phone, tablet, laptop and computer size screens with Google Chrome Dev Tools device toolbar.
-    R. The site responded as expcted at all device sizes and the screen layout changed with no issues. Was able to see all the walks and look into an individual walk.
+    - E. To go to the site as a non user and view the walks on the site at all screen sizes.
+    - T. I went to the site from a fresh start and clicked the walks tab on the nav, then clicked on one of the walks on this page. I did this on phone, tablet, laptop and computer size screens with Google Chrome Dev Tools device toolbar.
+    - R. The site responded as expcted at all device sizes and the screen layout changed with no issues. Was able to see all the walks and look into an individual walk.
 
 2. To be able to easily create a profile if I want to, and be able to change information on it if I needed to.
 
-    E. To be able to register easily a new user and view their profile.
-    T. On all devices sizes again, clicked the register button at the top and created 4 new users, using usernames i knew existed and trying to bypass all checks.
-    R. Trying a username I knew existed blocked and sent a flash message. When filling in everything, it was successful and the profile button appeared in the navbar, i clicked it and it took me to a profile showing the users information. I was able to add a profile image to the profile too. This all worked on all device sizes
+    - E. To be able to register easily a new user and view their profile.
+    - T. On all devices sizes again, clicked the register button at the top and created 4 new users, using usernames i knew existed and trying to bypass all checks.
+    - R. Trying a username I knew existed blocked and sent a flash message. When filling in everything, it was successful and the profile button appeared in the navbar, i clicked it and it took me to a profile showing the users information. I was able to add a profile image to the profile too. This all worked on all device sizes
 
 3. Be able to easily find hills that I am looking for and to be able to to see information and walks linked to those hills.
 
-    E. Able to search for a hill or walk and get results that can help me navigate to a walk or hill.
-    T. Typing in the search bar a name of a walk I know is on the system or the name of a hill in the lake district.
-    R. Site didnt respond as expected and was only able to show walks.
-    F. I redesigned the page to include  
+    - E. Able to search for a hill or walk and get results that can help me navigate to a walk or hill.
+    - T. Typing in the search bar a name of a walk I know is on the system or the name of a hill in the lake district.
+    - R. Site didnt respond as expected and was only able to show walks.
+    - F. No Fix avaiable at the moment. MongoDB does not allow indexes on different collections. this will become a feature to implement and to find out if its possible.
 
 4. To be able to easily mark off the hills I have climbed and be easily able to see the results when I come back later.
+
+    - E.
+    - T.
+    - R. Site did not behave as it should have. The group was added to the Easten Fells on the profile and not the Central Fells, I was then reidrected to the Eastern Fells page. Looking in the database, there are two hills called 'Brown Rigg' in different areas.
+    - F.
 
 
 5. Be able to share walks of my own with other users of the site, and be able to go back and edit these in the future.
 
 
 6. Be able to comment on walks on the site to be able to give advice to other people using the site.
-
+     
+     - E. Being able to go to a walk and post a comment about this walk, not being able to post if not logged in. Users are able to delete their own comments.
+     - T. I went to a walk as a logged in user and wrote a test comment in. I then logged out and tried to post a comment when not logged in.  
+     - R. Site responded as expected when logged in, flash message saying the message had been posted and comment posted at the top of the list. Was able to delete comment. When not logged in, got a jinja error as the comment expected a session.user value to post to the database. 
+     - F. I added an `<{% if session.user %}>` to the code and under the `<{% else %}>` i disabled the button and added a link to the log in page. Tried to post again and this worked.
 
 7. Add pictures to the walks I do or comment on to make this a much more eye catching site to enjoy visiting
 
@@ -190,6 +199,12 @@ Testing the User Stories that were previsouly defined in the UX section of the R
 * I did Z to the code because D
 
 # Bugs Discovered
+
+When on the Gallery or Walks page, the dropdown list for the Areas page did not show any results. The Areas dropdown was on the base document so was not sure why it was only happening on these two pages.
+After some searching, the functions that controlled these pages did not have the variable in the render_templates code to populate this list. I added the following bits into these functions.
+`<areas = list(mongo.db.areas.find())>`
+
+`<return render_template("gallery.html", images=images, areas=areas)>`
 
 
 # Deployment
