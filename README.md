@@ -54,7 +54,13 @@ Even though this is mainly focused around the back-end database, I have still tr
 
 ## Wireframes
 
-NEED TO MAKE SOME OF THESE!!
+With using Materialize and a mostly Databse driven project my layouts were fairly simple and easy to read and use, mainly focusing on card elements down the page.
+
+I created a wireframe for the Home page as I wasnt sure how i wanted this to look.
+![Main page Wireframe](/landing_page.png)
+
+Also one for the Profile page as this one contained more information and something that would grow and be usable by the user.
+![Profile page Wireframe](/profile.png)
 
 
 # Features
@@ -235,7 +241,7 @@ After some searching, the functions that controlled these pages did not have the
 
 A lot of the time during working and testing the comments, I had issues with comments posting multiple times and them not showing up until the page was refreshed. A long time going through and trying to figure out if there were bugs somewhere, all lead me to see that I had typed `<retun render_templates>` and not `<return redirect>` which seemed to be causing issues and resending forms. Changing the code fixed the issue.
 
-When I was looking to edit walks and I updated them, the page brought back a blank page with no information and sometimes deleted fields. After some testing and reading of the mongoDB documentation, the route needed to include a `<{"$set">` before the array so that it only set the fields in this list and left other exisitng ones alone.
+When I was looking to edit walks and I updated them, the page brought back a blank page with no information and sometimes deleted fields. After some testing and reading of the [mongoDB documentation](https://docs.mongodb.com/manual/reference/operator/update/set/), the route needed to include a `<{"$set">` before the array so that it only set the fields in this list and left other exisitng ones alone.
 
 
 # Deployment

@@ -66,3 +66,12 @@ main {
     font-weight: 500;
 }
 
+@media only screen and (max-width: 600px) {
+    nav .nav-wrapper {
+        height: 200%;
+    }
+    .flash-area {
+        margin-top: 18vh;
+    }
+}
+
