@@ -53,7 +53,7 @@
                                                         <li>
                                                             <div class="collapsible-header green lighten-1">{{ group }}</div>
                                                             {% for hill in hill|sort(attribute='hill_name') %}
-                                                            <div class="collapsible-body green lighten-2"><a href="{{ url_for('walk', hill_name=hill.hill_name ) }}" class="grey-text text-darken-2"><i class="fas fa-mountain "></i> {{ hill.hill_name }}</a></div>
+                                                            <div class="collapsible-body green lighten-2"><a href="{{ url_for('walk', walk_name=hill.hill_name ) }}" class="grey-text text-darken-2"><i class="fas fa-mountain "></i> {{ hill.hill_name }}</a></div>
                                                             {% endfor %}
                                                         </li>
                                                     </ul>
@@ -74,7 +74,7 @@
                             <div class="collection">
                                 {% for walk in walks %}
                                     {% if session.user == walk.user_created %}
-                                    <a href="{{ url_for('user_walk', walk_name=walk.walk_name) }}" class="collection-item green white-text">{{ walk.walk_name }}</a>
+                                    <a href="{{ url_for('walk', walk_name=walk.walk_name) }}" class="collection-item green white-text">{{ walk.walk_name }}</a>
                                     {% endif %}
                                 {% endfor %}
                             </div>

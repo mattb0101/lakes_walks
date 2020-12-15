@@ -150,12 +150,47 @@ NEED TO MAKE SOME OF THESE!!
 Testing the User Stories that were previsouly defined in the UX section of the README:
 
 1. To be able to easily view walks whether I have a profile on the site or not.
+
+    E. To go to the site as a non user and view the walks on the site at all screen sizes.
+    T. I went to the site from a fresh start and clicked the walks tab on the nav, then clicked on one of the walks on this page. I did this on phone, tablet, laptop and computer size screens with Google Chrome Dev Tools device toolbar.
+    R. The site responded as expcted at all device sizes and the screen layout changed with no issues. Was able to see all the walks and look into an individual walk.
+
 2. To be able to easily create a profile if I want to, and be able to change information on it if I needed to.
+
+    E. To be able to register easily a new user and view their profile.
+    T. On all devices sizes again, clicked the register button at the top and created 4 new users, using usernames i knew existed and trying to bypass all checks.
+    R. Trying a username I knew existed blocked and sent a flash message. When filling in everything, it was successful and the profile button appeared in the navbar, i clicked it and it took me to a profile showing the users information. I was able to add a profile image to the profile too. This all worked on all device sizes
+
 3. Be able to easily find hills that I am looking for and to be able to to see information and walks linked to those hills.
+
+    E. Able to search for a hill or walk and get results that can help me navigate to a walk or hill.
+    T. Typing in the search bar a name of a walk I know is on the system or the name of a hill in the lake district.
+    R. Site didnt respond as expected and was only able to show walks.
+    F. I redesigned the page to include  
+
 4. To be able to easily mark off the hills I have climbed and be easily able to see the results when I come back later.
+
+
 5. Be able to share walks of my own with other users of the site, and be able to go back and edit these in the future.
+
+
 6. Be able to comment on walks on the site to be able to give advice to other people using the site.
+
+
 7. Add pictures to the walks I do or comment on to make this a much more eye catching site to enjoy visiting
+
+
+# Expected
+* site is expected to do X when user does Y
+# Testing
+* Tested site by doing Y
+# result
+* site did not respond due to A B or C OR Site acted as expected and did Y
+# Fix
+* I did Z to the code because D
+
+# Bugs Discovered
+
 
 # Deployment
 
