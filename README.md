@@ -149,7 +149,7 @@ Creating the CSV file from excel using headers as the key for the fields. Using 
 #### [jQuery](https://jquery.com/)
 - jQuery is a framework that enables easier manipulation of the DOM and i have used this to simplifiy the code from standard JavaScript.
 
-#### [Python]{https://www.python.org/}
+#### [Python](https://www.python.org/)
 - Python is a programming language similar to javascript but trying to make code more readble and trying to help programmers with clear and logical code. 
 
 #### [flask](https://flask.palletsprojects.com/en/1.1.x/)
@@ -248,10 +248,10 @@ Key:
 
 I ran all my code through validators to check for errors and apply fixes to them. 
 
-[HTML validator](https://validator.w3.org/) - ran through, couple of issues, Jinja erors but not sure if validator is capable of seeing these? fixed and re-ran.
-[CSS Validator](https://jigsaw.w3.org/css-validator/) - No Errors
-[JavaScript Validator](https://jshint.com/) - few missed Semicolons - Fixed and re-ran
-[Python Validator](http://pep8online.com/) - Fixed all the line break, white space and under and over indents - Re-Ran and no errors.
+- [HTML validator](https://validator.w3.org/) - ran through, couple of issues, Jinja erors but not sure if validator is capable of seeing these? fixed and re-ran eith no errors (except jinja).
+- [CSS Validator](https://jigsaw.w3.org/css-validator/) - No Errors
+- [JavaScript Validator](https://jshint.com/) - Few missed Semicolons - Fixed and re-ran with no errors
+- [Python Validator](http://pep8online.com/) - Fixed all the line breaks, white spaces and under and over indents - Re-Ran and no errors.
 
 # Bugs Discovered
 
