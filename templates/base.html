@@ -14,7 +14,7 @@
 <body>
 
     <header>
-        <!-- Dropdown menu for areas -->
+        <!-- Dropdown menu for areas, this is 2 different ones for desktop and mobile as there need to be different id's -->
         <ul id="dropdown1" class="dropdown-content">
             {% for area in areas %}
             <li><a href="{{ url_for('area', area_name=area.area, hill_name='#') }}">{{ area.area }}</a></li>
@@ -60,8 +60,7 @@
             </div>
         </nav>
     
-    
-    
+        <!-- Navigation for mobile devices, created from the menu button on the navbar -->
         <ul class="sidenav" id="mobile-demo">
             <li><a href="{{ url_for('index') }}">Home</a></li>
             <li><a href="{{ url_for('walks') }}">Walks</a></li>
@@ -81,7 +80,6 @@
                     <input class="col s8 offset-s2" id="search-mobile" name="search" placeholder="Search here" type="search"
                         required>
                     <label class="label-icon" for="search"><i class="fas fa-search"></i></label>
-                    <!-- The material-icons class seems to keep this linked to the search bar -->
                     <i class="material-icons fas fa-times"></i>
                 </div>
             </form>
@@ -90,7 +88,7 @@
     </header>
         
     <section class="flash-area">
-        <!-- Flash messages when a user tried registering -->
+        <!-- Flash messages when a user performs an action to let them know their action has been a success, or let them know if there was an error. -->
         {% with messages = get_flashed_messages() %}
         {% if messages %}
         {% for message in messages %}
@@ -112,25 +110,29 @@
         <div class="container">
             <div class="row">
                 <div class="col l6 s12">
-                    <h5 class="white-text">Footer Content</h5>
-                    <p class="grey-text text-lighten-4">You can use rows and columns here to organize your footer content.
+                    <h5 class="white-text">Site created by: Matt Baum</h5>
+                    <p class="grey-text text-lighten-4">As a milestone project based on databases, Matt has created this to combine his passions of coding and walking.
                     </p>
                 </div>
                 <div class="col l4 offset-l2 s12">
                     <h5 class="white-text">Links</h5>
-                    <ul>
-                        <li><a class="grey-text text-lighten-3 blue circle " href="#!"><i
-                                    class="fab fa-linkedin-in"></i></a></li>
-                        <li><a class="grey-text text-lighten-3 blue circle" href="#!"><i class="fab fa-instagram"></i></a>
-                        </li>
-                    </ul>
+                    <div class="row">
+                        <div class="col">
+                            <a class="grey-text text-lighten-3 social-link" href="https://www.linkedin.com/in/matt-baum-0101" target="_blank"><i class="fab fa-linkedin-in" ></i></a>
+                        </div>
+                        <div class="col">
+                            <a class="grey-text text-lighten-3 social-link" href="https://www.instagram.com/mattbaum666/?hl=en" target="_blank"><i class="fab fa-instagram" ></i></a>
+                        </div>
+                        <div class="col">
+                            <a class="grey-text text-lighten-3 social-link" href="https://github.com/mattb0101" target="_blank"><i class="fab fa-github"></i></a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="footer-copyright">
             <div class="container">
                 © 2020 Copyright Text
-                <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
             </div>
         </div>
     </footer>

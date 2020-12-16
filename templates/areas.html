@@ -8,6 +8,7 @@
             <div class="row">
 				<div class="col s12 m4 l3 offset-m1 offset-l1">
 					<ul class="collapsible popout">
+                        <!-- This section of code works with the nested groups and creating another variable to be able to sort the query further.  -->
 						{% for group in groups %}
 						{% set parentgroup = group.group %}
 						<li>

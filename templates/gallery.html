@@ -14,9 +14,8 @@
                                     <img class="materialboxed responsive-img" src="{{ url_for('load_image', filename=image.gallery_image_name) }}" alt="">
                                 </div>
                                 <div class="card-content">
-                                    <span class="card-title text-bold">{{ image.gallery_image_title }} 
-                                        {% if session.user == image.username %}<a class="btn-flat right" href="{{ url_for('delete_image', image_id=image._id) }}"><i class="fas fa-times"></i></a>{% endif %}</span>
-                                    <p>This is some info about the picture!</p>
+                                    <span class="card-title text-bold">{{ image.image_title }} 
+                                        {% if (session.user == image.username) or (session.user == 'admin') %}<a class="btn-flat right" href="{{ url_for('delete_image', image_id=image._id) }}"><i class="fas fa-times"></i></a>{% endif %}</span>
                                     <span>Posted by: {{ image.username }}</span>
                                 </div>
                             </div>

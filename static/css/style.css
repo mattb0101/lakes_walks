@@ -62,10 +62,20 @@ main {
     padding: 24px;
 }
 
+/* Stops the image taking up too much space on card to cover over the text and make everything look uniform.  */
+.card.large .card-image {
+    max-height: 50%;
+}
+
 .card-content>.card-title {
     font-weight: 500;
 }
 
+.social-link {
+    font-size: 2rem;
+}
+
+/* The navbar wasnt growing at mobile size and the title was overflowing so needed this to make it fit */
 @media only screen and (max-width: 600px) {
     nav .nav-wrapper {
         height: 200%;

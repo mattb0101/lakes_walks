@@ -22,7 +22,9 @@ mongo = PyMongo(app)
 @app.route("/")
 def index():
     """
-    Starting route to bring back main index page. Areas variable added to all pages that have a navbar as this is there to control the dropdown menu on the Areas button.
+    Starting route to bring back main index page. Areas variable added to all
+    pages that have a navbar as this is there to control the
+    dropdown menu on the Areas button.
     """
     areas = list(mongo.db.areas.find())
     return render_template("index.html", areas=areas)
@@ -31,8 +33,10 @@ def index():
 @app.route("/area/<area_name>/<hill_name>")
 def area(area_name, hill_name):
     """
-    This is the route from clicking one of the areas that will bring you to a page with a collection involving areas, groups and hills.
-    The same page is used when a single hill is pressed and will populate data so needs one hill bringing through as well
+    This is the route from clicking one of the areas that will
+    bring you to a page with a collection involving areas, groups and hills.
+    The same page is used when a single hill is pressed and will
+    populate data so needs one hill bringing through as well
     """
     groups = list(mongo.db.groups.find({"area": area_name}))
     areas = list(mongo.db.areas.find())
@@ -65,7 +69,9 @@ def walks():
 @app.route("/walk/<walk_name>")
 def walk(walk_name):
     """
-    When a single walk is clicked on, this generates a new page with the details of that walk, also any comments that have been posted against this walk
+    When a single walk is clicked on, this generates a new page
+    with the details of that walk, also any comments that
+    have been posted against this walk
     """
     areas = list(mongo.db.areas.find())
     walk = mongo.db.walks.find_one({"walk_name": walk_name})
@@ -83,7 +89,9 @@ def walk(walk_name):
 @app.route("/publish_walk", methods=["GET", "POST"])
 def publish_walk():
     """
-    From the Walks page, a user can create their own walk. A modal will create this and push the data into the MongoDb along with an image if the user chooses one.
+    From the Walks page, a user can create their own walk.
+    A modal will create this and push the data into the MongoDb
+    along with an image if the user chooses one.
     """
     if request.method == "POST":
         if 'walk_image' in request.files:
@@ -110,7 +118,8 @@ def publish_walk():
 @app.route("/edit_walk/<walk_id>", methods=["GET", "POST"])
 def edit_walk(walk_id):
     """
-    Users can edit their own walks so this brings back and pushes the updated fields only back to the database.
+    Users can edit their own walks so this brings back
+    and pushes the updated fields only back to the database.
     """
     if request.method == "POST":
         walk = {"$set": {
@@ -130,14 +139,13 @@ def edit_walk(walk_id):
 @app.route("/delete_walk/<walk_id>", methods=["GET", "POST"])
 def delete_walk(walk_id):
     """
-    Delting  a walk if a user decides they dont want it anymore. 
+    Delting a walk if a user decides they dont want it anymore.
     """
     if request.method == "POST":
         mongo.db.walks.delete_one({"_id": ObjectId(walk_id)})
     return redirect(url_for('walks'))
 
 
-# On a hill checking to say you have walked it
 @app.route("/hill_check/<area_name>/<hill_name>/<group_name>",
            methods=["GET", "POST"])
 def hill_check(area_name, hill_name, group_name):
@@ -178,12 +186,16 @@ def hill_check(area_name, hill_name, group_name):
 @app.route("/user_comment/<walk_name>", methods=["GET", "POST"])
 def user_comment(walk_name):
     """
-    On walks, users can post comments so this takes the information and pushes that into the database so that this can be recalled when users view that walk.
+    On walks, users can post comments so this takes the information
+    and pushes that into the database so that this can be recalled
+    when users view that walk.
     """
     areas = list(mongo.db.areas.find())
     walk = mongo.db.walks.find_one({"walk_name": walk_name})
     comments = list(mongo.db.comments.find())
-    # Date and time stamp used so that the latest comments will appear at the top.
+
+    # Date and time stamp used so that the latest comments
+    # will appear at the top.
     timestamp = datetime.now().strftime("%d/%m/%Y, %H:%M")
 
     if request.method == "POST":
@@ -216,7 +228,9 @@ def delete_comment(walk_name, comment_id):
 @app.route("/search", methods=["GET", "POST"])
 def search():
     """
-    Search box in the navbar uses an index on the walks collection and will populate the walks sheet with only walks that match the search criteria. The index looks for walk name and hill name. 
+    Search box in the navbar uses an index on the walks collection
+    and will populate the walks sheet with only walks that
+    match the search criteria. The index looks for walk name and hill name.
     """
     search = request.form.get("search")
     walks = list(mongo.db.walks.find({"$text": {"$search": search}}))
@@ -252,7 +266,8 @@ def upload():
 @app.route("/upload_many", methods=["GET", "POST"])
 def upload_many():
     """
-    On the gallery page, users can upload images, this allows them to be able to upload multiple images at the same time.
+    On the gallery page, users can upload images,
+    this allows them to be able to upload multiple images at the same time.
     """
     if request.method == "POST":
         if "gallery_images[]" in request.files:
@@ -281,7 +296,9 @@ def delete_image(image_id):
 @app.route("/profile/<username>", methods=["GET", "POST"])
 def profile(username):
     """
-    a page that only the user can see when logged on, this will show their information and a collection of walks they have uploaded, along with all the hills they have climbed. 
+    a page that only the user can see when logged on,
+    this will show their information and a collection of walks
+    they have uploaded, along with all the hills they have climbed.
     """
     areas = list(mongo.db.areas.find())
     user = mongo.db.users.find_one({"username": username})
@@ -301,7 +318,9 @@ def profile(username):
 @app.route("/login", methods=["GET", "POST"])
 def login():
     """
-    Login page that asks for username and password, checks if the username exists, then uses Werkzeug to check the password hash for security. 
+    Login page that asks for username and password,
+    checks if the username exists, then uses Werkzeug to
+    check the password hash for security.
     """
     areas = list(mongo.db.areas.find())
 
@@ -333,7 +352,8 @@ def login():
 @app.route("/register", methods=["GET", "POST"])
 def register():
     """
-    People have to have a user account to upload pictures and post comments. Users register here to create an account. 
+    People have to have a user account to upload pictures
+    and post comments. Users register here to create an account.
     """
     areas = list(mongo.db.areas.find())
 

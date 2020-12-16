@@ -10,10 +10,10 @@
                             <div class="col s12 m6">
                                 <div class="card green ">
                                     <div class="card-image">
-                                        <img src="{{ url_for('load_image', filename=user.profile_image_name) }}" alt="Image of the User" class="responsive-img">
+                                        <img src="{{ url_for('load_image', filename=user.profile_image_name) }}"
+                                            alt="Image of the User" class="responsive-img">
                                     </div>
                                 </div>
-                                <!-- Image Uploading - Translate this into a modal at some point! -->
                                 <form action="{{ url_for('upload') }}" method="POST" enctype="multipart/form-data">
                                     <p>Want to add a picture to your profile?</p>
                                     <div class="file-field input-field">
@@ -32,8 +32,9 @@
                             </div>
                             <div class="col s12 m6">
                                 <ul class="collection ">
-                                     <li class="collection-item green lighten-2">Name: {{ user.first_name }} {{ user.last_name }}</li>
-                                     <li class="collection-item green lighten-2">Email: {{ user.email }}</li>    
+                                    <li class="collection-item green lighten-2">Name: {{ user.first_name }} {{ user.last_name }}
+                                    </li>
+                                    <li class="collection-item green lighten-2">Email: {{ user.email }}</li>
                                 </ul>
                             </div>
                         </div>
@@ -44,29 +45,33 @@
                 <div class="card green lighten-2">
                     <div class="card-content white-text">
                         <span class="card-title">Hills Climbed</span>
-                            <ul class="collapsible">
-                                {% for area, group in user.hills_walked| groupby('area_name') %}
-                                    <li>
-                                        <div class="collapsible-header green"><i class="fas fa-globe"></i>{{ area }}</div>
-                                        {% for group, hill in group| groupby('group_name') %}
-                                        <div class="collapsible-body green lighten-1">
-                                            <div class="row walks_done_row">
-                                                <div class="col s12">
-                                                    <ul class="collapsible">
-                                                        <li>
-                                                            <div class="collapsible-header green lighten-1">{{ group }}</div>
-                                                            {% for hill in hill|sort(attribute='hill_name') %}
-                                                            <div class="collapsible-body green lighten-2"><a href="{{ url_for('walk', walk_name=hill.hill_name ) }}" class="grey-text text-darken-2"><i class="fas fa-mountain "></i> {{ hill.hill_name }}</a></div>
-                                                            {% endfor %}
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>    
-                                        {% endfor %}
-                                    </li>    
+                        <ul class="collapsible">
+                            <!-- This is looking into the nested array from the hills a user has climbed and able to bring back all that data to their profile.  -->
+                            {% for area, group in user.hills_walked| groupby('area_name') %}
+                            <li>
+                                <div class="collapsible-header green"><i class="fas fa-globe"></i>{{ area }}</div>
+                                {% for group, hill in group| groupby('group_name') %}
+                                <div class="collapsible-body green lighten-1">
+                                    <div class="row walks_done_row">
+                                        <div class="col s12">
+                                            <ul class="collapsible">
+                                                <li>
+                                                    <div class="collapsible-header green lighten-1">{{ group }}</div>
+                                                    {% for hill in hill|sort(attribute='hill_name') %}
+                                                    <div class="collapsible-body green lighten-2"><a
+                                                            href="{{ url_for('walk', walk_name=hill.hill_name ) }}"
+                                                            class="grey-text text-darken-2"><i class="fas fa-mountain "></i>
+                                                            {{ hill.hill_name }}</a></div>
+                                                    {% endfor %}
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
                                 {% endfor %}
-                            </ul>
+                            </li>
+                            {% endfor %}
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -74,13 +79,14 @@
                 <div class="card green lighten-2">
                     <div class="card-content white-text">
                         <span class="card-title">Walks Uploaded</span>
-                            <div class="collection">
-                                {% for walk in walks %}
-                                    {% if session.user == walk.user_created %}
-                                    <a href="{{ url_for('walk', walk_name=walk.walk_name) }}" class="collection-item green white-text">{{ walk.walk_name }}</a>
-                                    {% endif %}
-                                {% endfor %}
-                            </div>
+                        <div class="collection">
+                            {% for walk in walks %}
+                            {% if session.user == walk.user_created %}
+                            <a href="{{ url_for('walk', walk_name=walk.walk_name) }}"
+                                class="collection-item green white-text">{{ walk.walk_name }}</a>
+                            {% endif %}
+                            {% endfor %}
+                        </div>
                     </div>
                 </div>
             </div>
